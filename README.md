@@ -1,7 +1,7 @@
 # CoreSync: TactiCore AI 🚀
 
 [![Stars](https://img.shields.io/github/stars/dycoresync-afk/coresync-tacticore-ai)](https://github.com/yourusername/coresync-tacticore-ai)
-[![License](https://img.shields.io/github/license/dycoresyn-afk/coresync-tacticore-ai)](LICENSE)
+[![License](https://img.shields.io/github/license/dycoresync-afk/coresync-tacticore-ai)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
 
 **Accelerating real-time, data-driven decisions for defense, law enforcement, and enterprise security.** TactiCore AI is an alpha-stage AI mission planning platform fusing multi-domain intel (HUMINT/SIGINT/OSINT) with explainable AI and planned Web3 for GDPR/ITAR-compliant, tamper-proof audits. Built by serial AI founder DY (ex-UN, $30M Iraq ops secured) for DoD/UN/NATO pilots.
