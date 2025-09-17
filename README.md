@@ -38,6 +38,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Issues/PRs welcome!
 MIT – See [LICENSE](LICENSE).
 
 ## Contact
-DY | dy.coresync@gmail.com | [LinkedIn](https://linkedin.com/in/dy-coresync) | Seeking $500K pre-seed.
+DY | dy.coresync@gmail.com | Seeking $500K pre-seed.
 
 *Built for a safer world. Outsmart threats together.*
