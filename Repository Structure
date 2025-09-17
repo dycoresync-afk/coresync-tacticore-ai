@@ -1,0 +1,27 @@
+coresync-tacticore-ai/
+├── README.md                 # Project overview, install, quickstart
+├── LICENSE                   # License
+├── .gitignore                # Standard Python ignores
+├── requirements.txt          # Dependencies (e.g., torch, solana-py)
+├── setup.py                  # For packaging
+├── .github/
+│   └── workflows/
+│       └── ci.yml            # Basic CI for tests
+├── src/
+│   ├── __init__.py
+│   ├── tacticore/
+│   │   ├── __init__.py
+│   │   ├── data_fusion.py    # Stub for real-time fusion (OSINT/CCTV)
+│   │   ├── explainable_ai.py # Stub for XAI compliance
+│   │   └── web3_integration.py # Stub for Solana/zk-proofs
+│   └── main.py               # Entry point demo
+├── tests/
+│   ├── __init__.py
+│   └── test_fusion.py        # Basic unit tests
+├── docs/
+│   ├── pitch-deck/           # Your PDF slides (upload all 28 pages as PDF)
+│   │   └── CoreSync_AI-Powered_Mission_Planning.pdf
+│   ├── api.md                # API docs
+│   └── roadmap.md            # Milestones (e.g., UN pilots)
+└── examples/
+    └── demo_mission_planning.ipynb # Jupyter notebook for alpha demo
