@@ -44,7 +44,7 @@ Contributions welcome! Read [CONTRIBUTING.md](contributing.md) first. Open issue
 Loved the project? Help us improve—consider donating contact for sponsorship.
 
 ## 📄 License
-CC0 – To the extent possible under law, DY has waived all copyright and related rights to this work. See [LICENSE](LICENSE).
+DY is working on. See [LICENSE](LICENSE).
 
 ## About
 TactiCore AI by CoreSync – Built to outsmart threats and secure lives. Alpha updates every build as we co-develop with UN teams.
