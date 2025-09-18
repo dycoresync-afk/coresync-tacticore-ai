@@ -22,7 +22,7 @@
 4. Explore alpha: Open `examples/demo_mission_planning.ipynb`.
 
 ## 🛠 Tech Stack
-- **AI/ML**: PyTorch, SHAP (XAI)
+- **AI/ML**: PyTorch, [SHAP (XAI)](xai_module.md)
 - **Data**: Pandas, OSINT libs
 - **Web3 (Planned)**: Solana-py for zk-proofs/audits on Seeker phone
 - **Deployment**: Docker-ready
