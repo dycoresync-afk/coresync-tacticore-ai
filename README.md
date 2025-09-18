@@ -38,7 +38,7 @@
 - **Field Ops**: Mobile UX for operators.
 
 ## 🤝 Contribute
-Contributions welcome! Read [CONTRIBUTING.md](CONTRIBUTING.md) first. Open issues or PRs to shape TactiCore’s alpha.
+Contributions welcome! Read [CONTRIBUTING.md](contributing.md) first. Open issues or PRs to shape TactiCore’s alpha.
 
 ## 💰 Support Us
 Loved the project? Help us improve—consider donating contact for sponsorship.
