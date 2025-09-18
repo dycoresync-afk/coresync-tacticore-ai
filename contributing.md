@@ -9,7 +9,7 @@ We follow the [Contributor Covenant Code of Conduct](https://www.contributor-cov
 
 ## Getting Started
 1. **Fork the Repo**: Click "Fork" on GitHub to create your copy.
-2. **Clone Locally**: `git clone https://github.com/yourusername/coresync-tacticore-ai.git`
+2. **Clone Locally**: `git clone https://github.com/dycoresync-afk/coresync-tacticore-ai.git`
 3. **Create a Branch**: `git checkout -b feature/your-feature-name` (e.g., `feature/data-fusion-enhance`).
 4. **Set Up Environment**:
    - Install Python 3.10+.
