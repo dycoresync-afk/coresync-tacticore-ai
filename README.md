@@ -15,7 +15,7 @@
 [View Pitch Deck](docs/pitch-deck/CoreSync_AI-Powered_Mission_Planning.pdf) | [Roadmap](docs/roadmap.md)
 
 ## 🚀 Quickstart
-1. Clone: `git clone https://github.com/yourusername/coresync-tacticore-ai.git`
+1. Clone: `git clone https://github.com/dycoresync-afk/coresync-tacticore-ai.git`
 2. Install: `pip install -r requirements.txt`
 3. Run demo: `python src/main.py` (simulates mission fusion)
 4. Explore alpha: Open `examples/demo_mission_planning.ipynb` in Jupyter.
