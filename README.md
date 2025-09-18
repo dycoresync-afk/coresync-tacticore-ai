@@ -35,7 +35,7 @@
 See [CONTRIBUTING.md](CONTRIBUTING.md). Issues/PRs welcome!
 
 ## 📄 License
-MIT – See [LICENSE](LICENSE).
+See [LICENSE](LICENSE).
 
 ## Contact
 DY | dy.coresync@gmail.com | Seeking $500K pre-seed.
