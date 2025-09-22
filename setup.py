@@ -13,10 +13,10 @@ setup(
     description="AI-Powered Mission Planning for Defense & Security",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/coresync-tacticore-ai",
+    url="https://github.com/coresync-afk/coresync-tacticore-ai",
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: License",
         "Operating System :: OS Independent",
     ],
 )
