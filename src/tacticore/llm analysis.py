@@ -1,5 +1,3 @@
-# tacticoreAI/llm/mission_assistant.py
-
 import torch
 from transformers import DistilBertTokenizer, DistilBertModel
 import numpy as np
