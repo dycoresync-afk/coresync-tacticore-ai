@@ -5,7 +5,7 @@
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
 [![Awesome Badge](https://img.shields.io/badge/Awesome-DefSec%20AI-brightgreen)](https://github.com/dycoresync-afk/coresync-tacticore-ai)
 
-**Accelerating real-time, data-driven mission planning for defense, law enforcement, and security.** TactiCore AI is an alpha-stage AI platform fusing multi-domain intel (HUMINT/SIGINT/OSINT) with explainable AI and planned Web3 for GDPR/ITAR-compliant, tamper-proof audits. Updated in real-time as we build with UNSCO/UNTSO teams.
+**Accelerating real-time, data-driven mission planning for defense, law enforcement, and security.** TactiCore AI is an alpha-stage AI platform fusing multi-domain intel (HUMINT/SIGINT/OSINT) with explainable AI and planned Web3 for GDPR/ITAR-compliant, tamper-proof audits. Updated in real-time as we build with two UN security teams in Middle East.
 
 [View Pitch Deck](docs/pitch-deck/CoreSync_AI-Powered_Mission_Planning.pdf) | [Roadmap](docs/roadmap.md) | [Join Community](mailto:dy.coresync@gmail.com)
 
