@@ -22,7 +22,7 @@
         .mission-card {
             break-inside: avoid;
         }
-         {
+        @media print {
             body { margin: 0; padding: 20px; }
             .no-print { display: none !important; }
         }
@@ -223,7 +223,7 @@
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Coordinates (optional)</label>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Coordinates</label>
                                 <input type="text" class="w-full p-3 border border-gray-300 rounded-md" placeholder="18.4296, -69.6690" value="18.4296, -69.6690">
                             </div>
                             <div>
@@ -988,7 +988,7 @@
         <div class="container mx-auto">
             <div class="flex justify-between items-center">
                 <div>
-                    <p class="text-sm">&copy; 2026 CoreSync | UN/DSS Security Mission Planning System</p>
+                    <p class="text-sm">&copy; 2026 TactiCore AI | UN/DSS Security Mission Planning System</p>
                     <p class="text-xs text-gray-400">Classification: FOR OFFICIAL USE ONLY | Compliant with DSS protocols</p>
                 </div>
                 <div class="text-right">
@@ -999,7 +999,8 @@
         </div>
     </footer>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMaps"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script>
         // Tab switching functionality
         document.addEventListener('DOMContentLoaded', function() {
@@ -1088,7 +1089,88 @@
             }, 3000);
             
             setTimeout(() => {
-                alert('Routes generated! Check the Generated Routes section for detailed analysis.');
+                const start = document.getElementById("start-point").value;
+                const end = document.getElementById("end-point").value;
+
+                // Ensure DOM is fully loaded and map containers exist
+                if (!document.getElementById('map-primary') || 
+                    !document.getElementById('map-secondary') || 
+                    !document.getElementById('map-emergency')) {
+                    console.error('One or more map containers not found in the DOM');
+                    alert('Error: Map containers are not available. Please refresh the page.');
+                    return;
+                }
+
+                // Initialize OpenStreetMap maps with error handling
+                let mapPrimary, mapSecondary, mapEmergency;
+                try {
+                    mapPrimary = L.map('map-primary').setView([18.4655, -69.9117], 12); // Santo Domingo
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(mapPrimary);
+                } catch (e) {
+                    console.error('Failed to initialize primary map:', e);
+                    alert('Error initializing primary map. Please try again.');
+                    return;
+                }
+
+                try {
+                    mapSecondary = L.map('map-secondary').setView([18.4655, -69.9117], 12);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(mapSecondary);
+                } catch (e) {
+                    console.error('Failed to initialize secondary map:', e);
+                    alert('Error initializing secondary map. Please try again.');
+                    return;
+                }
+
+                try {
+                    mapEmergency = L.map('map-emergency').setView([18.4655, -69.9117], 12);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(mapEmergency);
+                } catch (e) {
+                    console.error('Failed to initialize emergency map:', e);
+                    alert('Error initializing emergency map. Please try again.');
+                    return;
+                }
+
+                // Use approximate coordinates based on start and end points
+                const startCoords = [-69.6690, 18.4296]; // Las Américas International Airport
+                const endCoords = [-69.9117, 18.4655];   // Hotel InterContinental Santo Domingo
+                const coordinates = `${startCoords[0]},${startCoords[1]};${endCoords[0]},${endCoords[1]}`;
+
+                // Fetch routes with robust error handling
+                const osrmBaseUrl = 'https://router.project-osrm.org/route/v1/driving/';
+                const fetchRoute = (url, map, color) => {
+                    fetch(url)
+                        .then(response => {
+                            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.code !== 'Ok') throw new Error(`Routing API error: ${data.code}`);
+                            const route = data.routes[0].geometry.coordinates;
+                            const latlngs = route.map(coord => [coord[1], coord[0]]);
+                            L.polyline(latlngs, { color: color }).addTo(map);
+                            map.fitBounds(L.latLngBounds(latlngs));
+                        })
+                        .catch(error => {
+                            console.error(`Error fetching route: ${error.message}`);
+                            alert(`Failed to generate a route. Error: ${error.message}. Please try again or check your internet connection.`);
+                        });
+                };
+
+                // Execute route fetches
+                fetchRoute(`${osrmBaseUrl}${coordinates}?overview=full&geometries=geojson`, mapPrimary, '#22C55E');
+                fetchRoute(`${osrmBaseUrl}${coordinates}?overview=full&geometries=geojson&steps=true`, mapSecondary, '#EAB308');
+                fetchRoute(`${osrmBaseUrl}${coordinates}?overview=full&geometries=geojson&options=avoid_highways`, mapEmergency, '#EF4444');
+
+                alert('Routes generated! Check the Generated Routes section for detailed analysis and maps.');
             }, 4500);
         }
 
@@ -1174,74 +1256,7 @@
                 });
             });
         }, 30000); // Auto-save every 30 seconds
-
-        // Google Maps Initialization
-        let mapPrimary, mapSecondary, mapEmergency;
-        let directionsPrimary = new google.maps.DirectionsService();
-        let directionsSecondary = new google.maps.DirectionsService();
-        let directionsEmergency = new google.maps.DirectionsService();
-        let rendererPrimary = new google.maps.DirectionsRenderer({ polylineOptions: { strokeColor: "#22C55E" } });
-        let rendererSecondary = new google.maps.DirectionsRenderer({ polylineOptions: { strokeColor: "#EAB308" } });
-        let rendererEmergency = new google.maps.DirectionsRenderer({ polylineOptions: { strokeColor: "#EF4444" } });
-
-        function initMaps() {
-            mapPrimary = new google.maps.Map(document.getElementById("map-primary"), { zoom: 12, center: { lat: 18.4655, lng: -69.9117 } });
-            rendererPrimary.setMap(mapPrimary);
-            mapSecondary = new google.maps.Map(document.getElementById("map-secondary"), { zoom: 12, center: { lat: 18.4655, lng: -69.9117 } });
-            rendererSecondary.setMap(mapSecondary);
-            mapEmergency = new google.maps.Map(document.getElementById("map-emergency"), { zoom: 12, center: { lat: 18.4655, lng: -69.9117 } });
-            rendererEmergency.setMap(mapEmergency);
-        }
-
-        function generateRoutes() {
-            showProgress('Analyzing route parameters...', 1500);
-            
-            setTimeout(() => {
-                showProgress('Pulling real-time traffic data...', 1500);
-            }, 1500);
-            
-            setTimeout(() => {
-                showProgress('Assessing security threats...', 1500);
-            }, 3000);
-            
-            setTimeout(() => {
-                const start = document.getElementById("start-point").value;
-                const end = document.getElementById("end-point").value;
-
-                // Primary Route (Direct highway)
-                directionsPrimary.route({
-                    origin: start,
-                    destination: end,
-                    travelMode: 'DRIVING',
-                    avoidTolls: true
-                }, (response, status) => {
-                    if (status === 'OK') rendererPrimary.setDirections(response);
-                });
-
-                // Secondary Route (Alternative with waypoints for medium risk)
-                directionsSecondary.route({
-                    origin: start,
-                    destination: end,
-                    travelMode: 'DRIVING',
-                    waypoints: [{ location: "Av. 27 de Febrero, Santo Domingo" }],
-                    optimizeWaypoints: true
-                }, (response, status) => {
-                    if (status === 'OK') rendererSecondary.setDirections(response);
-                });
-
-                // Emergency Route (Shortest but high risk, avoiding highways)
-                directionsEmergency.route({
-                    origin: start,
-                    destination: end,
-                    travelMode: 'DRIVING',
-                    avoidHighways: true
-                }, (response, status) => {
-                    if (status === 'OK') rendererEmergency.setDirections(response);
-                });
-
-                alert('Routes generated! Check the Generated Routes section for detailed analysis and maps.');
-            }, 4500);
-        }
     </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"96fd78b578fb00a5","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.8.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
 </body>
 </html>
