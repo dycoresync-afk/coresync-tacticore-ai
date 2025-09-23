@@ -16,10 +16,7 @@
 - **Edge**: 50% faster deployment, 30% cheaper than Palantir.
 
 ## 🚀 Quickstart
-1. Clone: `git clone https://github.com/dycoresync-afk/coresync-tacticore-ai.git`
-2. Install: `pip install -r requirements.txt`
-3. Run demo: `python src/main.py` (simulates mission fusion)
-4. Explore alpha: Open `examples/demo_mission_planning.ipynb`.
+1. Run demo: `TactiCore_AI_Security_Planning_System.html'
 
 ## 🛠 Tech Stack
 - **AI/ML**: PyTorch, [SHAP (XAI)](xai_module.md)
