@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TactiCore AI - Security Mission Planning System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .pdf-optimized {
+            min-height: 100vh;
+            overflow: visible;
+        }
+        .no-scroll {
+            overflow: visible !important;
+            max-height: none !important;
+        }
+        .chart-container {
+            height: 400px;
+        }
+        .mission-card {
+            break-inside: avoid;
+        }
+         {
+            body { margin: 0; padding: 20px; }
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 pdf-optimized">
+    <!-- Header -->
+    <header class="bg-blue-900 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-shield-alt text-3xl"></i>
+                <div>
+                    <h1 class="text-2xl font-bold">TactiCore AI</h1>
+                    <p class="text-blue-200">Security Mission Planning System</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="bg-green-500 px-3 py-1 rounded-full text-sm">
+                    <i class="fas fa-circle text-xs mr-1"></i>System Online
+                </span>
+                <span class="text-sm">2026 Budget Optimized</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <div class="container mx-auto p-6 space-y-6">
+        
+        <!-- Navigation Tabs -->
+        <div class="bg-white rounded-lg shadow-md">
+            <div class="flex border-b" id="tabNav">
+                <button class="tab-btn active px-6 py-3 border-b-2 border-blue-500 text-blue-600 font-medium" data-tab="mission-setup">
+                    <i class="fas fa-plus-circle mr-2"></i>Mission Setup
+                </button>
+                <button class="tab-btn px-6 py-3 text-gray-600 hover:text-blue-600" data-tab="route-generation">
+                    <i class="fas fa-route mr-2"></i>Route Generation
+                </button>
+                <button class="tab-btn px-6 py-3 text-gray-600 hover:text-blue-600" data-tab="intelligence">
+                    <i class="fas fa-eye mr-2"></i>Intelligence Dashboard
+                </button>
+                <button class="tab-btn px-6 py-3 text-gray-600 hover:text-blue-600" data-tab="task-allocation">
+                    <i class="fas fa-users mr-2"></i>Task Allocation
+                </button>
+                <button class="tab-btn px-6 py-3 text-gray-600 hover:text-blue-600" data-tab="approvals">
+                    <i class="fas fa-check-circle mr-2"></i>Approvals
+                </button>
+                <button class="tab-btn px-6 py-3 text-gray-600 hover:text-blue-600" data-tab="documents">
+                    <i class="fas fa-file-alt mr-2"></i>Documents
+                </button>
+                <button class="tab-btn px-6 py-3 text-gray-600 hover:text-blue-600" data-tab="archive">
+                    <i class="fas fa-archive mr-2"></i>Archive
+                </button>
+            </div>
+        </div>
+
+        <!-- Mission Setup Tab -->
+        <div id="mission-setup" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Mission Parameters -->
+                <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-clipboard-list mr-2 text-blue-600"></i>Mission Parameters
+                    </h3>
+                    <form id="missionForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Mission Objective</label>
+                            <textarea class="w-full p-3 border border-gray-300 rounded-md" rows="3" placeholder="e.g., VIP transport from airport to hotel, coordination meeting protection"></textarea>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                                <input type="text" class="w-full p-3 border border-gray-300 rounded-md" placeholder="Santo Domingo, Dominican Republic">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Duration</label>
+                                <input type="text" class="w-full p-3 border border-gray-300 rounded-md" placeholder="2 days">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Team Size</label>
+                                <input type="number" class="w-full p-3 border border-gray-300 rounded-md" placeholder="8" min="5" max="20">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Risk Level</label>
+                                <select class="w-full p-3 border border-gray-300 rounded-md">
+                                    <option>High</option>
+                                    <option>Medium</option>
+                                    <option>Low</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Principal Details -->
+                <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-user-shield mr-2 text-green-600"></i>Principal Details
+                    </h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Principal Name/Role</label>
+                            <input type="text" class="w-full p-3 border border-gray-300 rounded-md" placeholder="UN Special Envoy">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Blood Type</label>
+                                <select class="w-full p-3 border border-gray-300 rounded-md">
+                                    <option>O+</option>
+                                    <option>A+</option>
+                                    <option>B+</option>
+                                    <option>AB+</option>
+                                    <option>O-</option>
+                                    <option>A-</option>
+                                    <option>B-</option>
+                                    <option>AB-</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Medical Priority</label>
+                                <select class="w-full p-3 border border-gray-300 rounded-md">
+                                    <option>P1 - Urgent</option>
+                                    <option>P2 - Priority</option>
+                                    <option>P3 - Routine</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Allergies & Medical Notes</label>
+                            <textarea class="w-full p-3 border border-gray-300 rounded-md" rows="2" placeholder="e.g., Penicillin allergy, requires insulin"></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Template Upload -->
+                <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-upload mr-2 text-purple-600"></i>Template Upload
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                            <i class="fas fa-file-upload text-4xl text-gray-400 mb-2"></i>
+                            <p class="text-gray-600">Drag & drop DOCX/PDF templates or click to browse</p>
+                            <input type="file" class="hidden" accept=".docx,.pdf" multiple>
+                            <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                                Browse Files
+                            </button>
+                        </div>
+                        <div class="text-sm text-gray-500">
+                            <p><strong>Supported templates:</strong> SRM, SRA, CONOPS, Ops Orders</p>
+                            <p><strong>Max file size:</strong> 10MB per file</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-bolt mr-2 text-yellow-600"></i>Quick Actions
+                    </h3>
+                    <div class="space-y-3">
+                        <button class="w-full bg-green-600 text-white py-3 px-4 rounded-md hover:bg-green-700 transition-colors" onclick="generateMission()">
+                            <i class="fas fa-magic mr-2"></i>Generate Mission Plan
+                        </button>
+                        <button class="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-sync mr-2"></i>Pull Latest Intelligence
+                        </button>
+                        <button class="w-full bg-orange-600 text-white py-3 px-4 rounded-md hover:bg-orange-700 transition-colors">
+                            <i class="fas fa-save mr-2"></i>Save Draft
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Route Generation Tab -->
+        <div id="route-generation" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Route Input -->
+                <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-map-marker-alt mr-2 text-red-600"></i>Route Parameters
+                    </h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Start Point</label>
+                            <input type="text" class="w-full p-3 border border-gray-300 rounded-md" placeholder="Las Américas International Airport" value="Las Américas International Airport">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">End Point</label>
+                            <input type="text" class="w-full p-3 border border-gray-300 rounded-md" placeholder="Hotel InterContinental Santo Domingo" value="Hotel InterContinental Santo Domingo">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Coordinates</label>
+                                <input type="text" class="w-full p-3 border border-gray-300 rounded-md" placeholder="18.4296, -69.6690" value="18.4296, -69.6690">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Time Window</label>
+                                <input type="time" class="w-full p-3 border border-gray-300 rounded-md" value="14:30">
+                            </div>
+                        </div>
+                        <button type="button" class="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700" onclick="generateRoutes()">
+                            <i class="fas fa-route mr-2"></i>Generate Routes
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Generated Routes -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-road mr-2 text-blue-600"></i>Generated Routes
+                    </h3>
+                    <div id="routeResults" class="space-y-4">
+                        <!-- Route 1 -->
+                        <div class="border border-green-200 bg-green-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-green-800">
+                                    <i class="fas fa-shield-alt mr-2"></i>Primary Route (Recommended)
+                                </h4>
+                                <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm">LOW RISK</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div><strong>Distance:</strong> 32.5 km</div>
+                                <div><strong>Duration:</strong> 45 minutes</div>
+                                <div><strong>Route:</strong> Airport → Autopista Las Américas → Av. Winston Churchill → Hotel</div>
+                                <div><strong>Risk Factors:</strong> Minimal traffic, well-lit, secure checkpoints</div>
+                            </div>
+                            <div class="mt-2 text-sm text-green-700">
+                                <strong>Evasion Tactics:</strong> Use diplomatic plates, maintain 60 km/h, coordinate with local police
+                            </div>
+                            <div id="map-primary"></div>
+                        </div>
+
+                        <!-- Route 2 -->
+                        <div class="border border-yellow-200 bg-yellow-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-yellow-800">
+                                    <i class="fas fa-exclamation-triangle mr-2"></i>Secondary Route
+                                </h4>
+                                <span class="bg-yellow-600 text-white px-3 py-1 rounded-full text-sm">MEDIUM RISK</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div><strong>Distance:</strong> 38.2 km</div>
+                                <div><strong>Duration:</strong> 55 minutes</div>
+                                <div><strong>Route:</strong> Airport → Circunvalación → Av. 27 de Febrero → Hotel</div>
+                                <div><strong>Risk Factors:</strong> Heavy traffic, construction zones</div>
+                            </div>
+                            <div class="mt-2 text-sm text-yellow-700">
+                                <strong>Evasion Tactics:</strong> Avoid rush hours, use alternate exits, maintain communications
+                            </div>
+                            <div id="map-secondary"></div>
+                        </div>
+
+                        <!-- Route 3 -->
+                        <div class="border border-red-200 bg-red-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-red-800">
+                                    <i class="fas fa-exclamation-circle mr-2"></i>Emergency Route
+                                </h4>
+                                <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm">HIGH RISK</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div><strong>Distance:</strong> 28.1 km</div>
+                                <div><strong>Duration:</strong> 35 minutes</div>
+                                <div><strong>Route:</strong> Airport → Av. Las Américas → Ciudad Nueva → Hotel</div>
+                                <div><strong>Risk Factors:</strong> High crime area, narrow streets, limited escape routes</div>
+                            </div>
+                            <div class="mt-2 text-sm text-red-700">
+                                <strong>Evasion Tactics:</strong> Use only in emergency, full escort required, night vision equipment
+                            </div>
+                            <div id="map-emergency"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Intelligence Dashboard Tab -->
+        <div id="intelligence" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Threat Overview -->
+                <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-shield-alt mr-2 text-red-600"></i>Threat Assessment Overview
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="threatChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- OSINT Feed -->
+                <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-satellite mr-2 text-blue-600"></i>OSINT Intelligence Feed
+                    </h3>
+                    <div class="space-y-3 max-h-80 no-scroll">
+                        <div class="bg-red-50 border-l-4 border-red-500 p-3 rounded">
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-red-800">High Priority Alert</p>
+                                    <p class="text-sm text-red-600">Increased cartel activity reported in Ciudad Nueva district. Source: Local news outlets, verified by HUMINT</p>
+                                </div>
+                                <span class="text-xs text-red-500">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-3 rounded">
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-yellow-800">Traffic Advisory</p>
+                                    <p class="text-sm text-yellow-600">Road closure on Av. 27 de Febrero due to construction. Alternative routes recommended.</p>
+                                </div>
+                                <span class="text-xs text-yellow-500">4 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-3 rounded">
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-blue-800">Weather Update</p>
+                                    <p class="text-sm text-blue-600">Tropical storm watch issued for Caribbean region. Monitor conditions for potential route adjustments.</p>
+                                </div>
+                                <span class="text-xs text-blue-500">6 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="bg-green-50 border-l-4 border-green-500 p-3 rounded">
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-green-800">Security Update</p>
+                                    <p class="text-sm text-green-600">Enhanced police patrols deployed along diplomatic routes. Coordination established with local authorities.</p>
+                                </div>
+                                <span class="text-xs text-green-500">8 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HUMINT Reports -->
+                <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-user-secret mr-2 text-green-600"></i>HUMINT Reports
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-medium text-gray-800">Informant Report - Alpha-7</h4>
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">VERIFIED</span>
+                            </div>
+                            <p class="text-sm text-gray-600">Local contact reports increased gang presence near Malecón area during evening hours. Recommends avoiding waterfront routes after 18:00.</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-medium text-gray-800">Field Report - Hotel Security</h4>
+                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">PENDING</span>
+                            </div>
+                            <p class="text-sm text-gray-600">Hotel security confirms adequate perimeter protection. VIP floor access controlled. Emergency evacuation routes tested and functional.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SIGINT Simulation -->
+                <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-broadcast-tower mr-2 text-purple-600"></i>SIGINT Analysis
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="bg-red-50 p-4 rounded-lg border border-red-200">
+                            <div class="flex items-center mb-2">
+                                <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse mr-2"></div>
+                                <h4 class="font-medium text-red-800">Signal Intercept Alert</h4>
+                            </div>
+                            <p class="text-sm text-red-600">Unusual radio chatter detected in frequency bands associated with criminal networks. Timestamp: 13:45 local time.</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <div class="flex items-center mb-2">
+                                <div class="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
+                                <h4 class="font-medium text-blue-800">Communication Analysis</h4>
+                            </div>
+                            <p class="text-sm text-blue-600">Mobile network congestion patterns suggest large gathering or event in Zone 3. Monitor for potential demonstration activity.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Allocation Tab -->
+        <div id="task-allocation" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Team Configuration -->
+                <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-users-cog mr-2 text-blue-600"></i>Team Configuration
+                    </h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Close Protection Officers</label>
+                            <input type="number" class="w-full p-3 border border-gray-300 rounded-md" value="3" min="1" max="10">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Drivers</label>
+                            <input type="number" class="w-full p-3 border border-gray-300 rounded-md" value="2" min="1" max="5">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Medical Personnel</label>
+                            <input type="number" class="w-full p-3 border border-gray-300 rounded-md" value="1" min="0" max="3">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Communications</label>
+                            <input type="number" class="w-full p-3 border border-gray-300 rounded-md" value="1" min="0" max="2">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Field Security Officers</label>
+                            <input type="number" class="w-full p-3 border border-gray-300 rounded-md" value="1" min="0" max="3">
+                        </div>
+                        <button type="button" class="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700" onclick="allocateTasks()">
+                            <i class="fas fa-magic mr-2"></i>Auto-Allocate Tasks
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Task Assignments -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-tasks mr-2 text-green-600"></i>Task Assignments
+                    </h3>
+                    <div id="taskAssignments" class="space-y-4">
+                        <!-- CPO Tasks -->
+                        <div class="border border-blue-200 bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-blue-800 mb-3">
+                                <i class="fas fa-shield-alt mr-2"></i>Close Protection Officers (3)
+                            </h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between bg-white p-2 rounded">
+                                    <span class="text-sm">CPO-1: Principal protection (primary)</span>
+                                    <input type="checkbox" checked class="text-blue-600">
+                                </div>
+                                <div class="flex items-center justify-between bg-white p-2 rounded">
+                                    <span class="text-sm">CPO-2: Route advance reconnaissance - 13 Jul 09:00</span>
+                                    <input type="checkbox" checked class="text-blue-600">
+                                </div>
+                                <div class="flex items-center justify-between bg-white p-2 rounded">
+                                    <span class="text-sm">CPO-3: Venue security assessment</span>
+                                    <input type="checkbox" class="text-blue-600">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Driver Tasks -->
+                        <div class="border border-green-200 bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-green-800 mb-3">
+                                <i class="fas fa-car mr-2"></i>Drivers (2)
+                            </h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between bg-white p-2 rounded">
+                                    <span class="text-sm">Driver-1: Primary vehicle (armored sedan)</span>
+                                    <input type="checkbox" checked class="text-green-600">
+                                </div>
+                                <div class="flex items-center justify-between bg-white p-2 rounded">
+                                    <span class="text-sm">Driver-2: Route clearance and backup vehicle</span>
+                                    <input type="checkbox" checked class="text-green-600">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Medical Tasks -->
+                        <div class="border border-red-200 bg-red-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-red-800 mb-3">
+                                <i class="fas fa-user-md mr-2"></i>Medical Personnel (1)
+                            </h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between bg-white p-2 rounded">
+                                    <span class="text-sm">Medical-1: Standby ambulance coordination</span>
+                                    <input type="checkbox" checked class="text-red-600">
+                                </div>
+                                <div class="flex items-center justify-between bg-white p-2 rounded">
+                                    <span class="text-sm">Medical-1: Hospital liaison and evacuation planning</span>
+                                    <input type="checkbox" class="text-red-600">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Communications Tasks -->
+                        <div class="border border-purple-200 bg-purple-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-purple-800 mb-3">
+                                <i class="fas fa-broadcast-tower mr-2"></i>Communications (1)
+                            </h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between bg-white p-2 rounded">
+                                    <span class="text-sm">Comms-1: Radio network coordination</span>
+                                    <input type="checkbox" checked class="text-purple-600">
+                                </div>
+                                <div class="flex items-center justify-between bg-white p-2 rounded">
+                                    <span class="text-sm">Comms-1: Emergency communications backup</span>
+                                    <input type="checkbox" class="text-purple-600">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Approvals Tab -->
+        <div id="approvals" class="tab-content hidden">
+            <div class="space-y-6">
+                <!-- Approval Workflow -->
+                <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-clipboard-check mr-2 text-green-600"></i>Approval Workflow
+                    </h3>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center space-x-4">
+                            <!-- Step 1 -->
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-900">FSCO Review</p>
+                                    <p class="text-xs text-gray-500">Approved - 12 Jul 16:30</p>
+                                </div>
+                            </div>
+                            <div class="w-16 h-1 bg-green-500"></div>
+                            
+                            <!-- Step 2 -->
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-yellow-500 text-white rounded-full flex items-center justify-center animate-pulse">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-900">CSO Review</p>
+                                    <p class="text-xs text-gray-500">Pending</p>
+                                </div>
+                            </div>
+                            <div class="w-16 h-1 bg-gray-300"></div>
+                            
+                            <!-- Step 3 -->
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-hourglass-half"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-900">RSA Sign-off</p>
+                                    <p class="text-xs text-gray-500">Awaiting</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Approval History -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                        <h3 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-history mr-2 text-blue-600"></i>Approval History
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="border-l-4 border-green-500 bg-green-50 p-4 rounded-r-lg">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-medium text-green-800">FSCO Approval</h4>
+                                    <span class="text-xs text-green-600">12 Jul 16:30</span>
+                                </div>
+                                <p class="text-sm text-green-700">Mission parameters approved. Route recommendations accepted with minor modifications to timing windows.</p>
+                                <p class="text-xs text-green-600 mt-1"><strong>Approved by:</strong> J. Rodriguez, Field Security Coordination Officer</p>
+                            </div>
+
+                            <div class="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-medium text-blue-800">Initial Submission</h4>
+                                    <span class="text-xs text-blue-600">12 Jul 14:15</span>
+                                </div>
+                                <p class="text-sm text-blue-700">Mission plan submitted for review. All required documentation attached.</p>
+                                <p class="text-xs text-blue-600 mt-1"><strong>Submitted by:</strong> TactiCore AI System</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Current Review -->
+                    <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                        <h3 class="text-xl font-bold mb-4 text-gray-800">
+                            <i class="fas fa-eye mr-2 text-yellow-600"></i>Current Review: CSO
+                        </h3>
+                        <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-lg mb-4">
+                            <div class="flex items-center mb-2">
+                                <div class="w-3 h-3 bg-yellow-500 rounded-full animate-pulse mr-2"></div>
+                                <h4 class="font-medium text-yellow-800">Awaiting Chief Security Officer Review</h4>
+                            </div>
+                            <p class="text-sm text-yellow-700">Mission plan pending final security assessment and resource allocation approval.</p>
+                            <div class="mt-3 text-xs text-yellow-600">
+                                <p><strong>Assigned to:</strong> M. Thompson, Chief Security Officer</p>
+                                <p><strong>Due:</strong> 13 Jul 10:00</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <button class="w-full bg-yellow-600 text-white py-2 px-4 rounded-md hover:bg-yellow-700">
+                                <i class="fas fa-bell mr-2"></i>Send Reminder
+                            </button>
+                            <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
+                                <i class="fas fa-edit mr-2"></i>Request Revision
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documents Tab -->
+        <div id="documents" class="tab-content hidden">
+            <div class="space-y-6">
+                <!-- Document Generation -->
+                <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-file-contract mr-2 text-blue-600"></i>Generated Documents
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="border border-green-200 bg-green-50 p-4 rounded-lg text-center">
+                            <i class="fas fa-shield-alt text-3xl text-green-600 mb-2"></i>
+                            <h4 class="font-medium text-green-800">SRM Document</h4>
+                            <p class="text-xs text-green-600 mb-3">Security Risk Management</p>
+                            <button class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">
+                                <i class="fas fa-download mr-1"></i>Download
+                            </button>
+                        </div>
+                        
+                        <div class="border border-blue-200 bg-blue-50 p-4 rounded-lg text-center">
+                            <i class="fas fa-clipboard-list text-3xl text-blue-600 mb-2"></i>
+                            <h4 class="font-medium text-blue-800">SRA Document</h4>
+                            <p class="text-xs text-blue-600 mb-3">Security Risk Assessment</p>
+                            <button class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
+                                <i class="fas fa-download mr-1"></i>Download
+                            </button>
+                        </div>
+                        
+                        <div class="border border-purple-200 bg-purple-50 p-4 rounded-lg text-center">
+                            <i class="fas fa-sitemap text-3xl text-purple-600 mb-2"></i>
+                            <h4 class="font-medium text-purple-800">CONOPS</h4>
+                            <p class="text-xs text-purple-600 mb-3">Concept of Operations</p>
+                            <button class="bg-purple-600 text-white px-3 py-1 rounded text-sm hover:bg-purple-700">
+                                <i class="fas fa-download mr-1"></i>Download
+                            </button>
+                        </div>
+                        
+                        <div class="border border-orange-200 bg-orange-50 p-4 rounded-lg text-center">
+                            <i class="fas fa-file-alt text-3xl text-orange-600 mb-2"></i>
+                            <h4 class="font-medium text-orange-800">Ops Orders</h4>
+                            <p class="text-xs text-orange-600 mb-3">Operations Orders</p>
+                            <button class="bg-orange-600 text-white px-3 py-1 rounded text-sm hover:bg-orange-700">
+                                <i class="fas fa-download mr-1"></i>Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Preview -->
+                <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-eye mr-2 text-green-600"></i>Document Preview: CONOPS
+                    </h3>
+                    <div class="bg-gray-50 p-6 rounded-lg border text-sm no-scroll" style="max-height: 500px; overflow-y: visible;">
+                        <div class="text-center mb-6">
+                            <h2 class="text-lg font-bold">CONCEPT OF OPERATIONS (CONOPS)</h2>
+                            <p class="text-sm text-gray-600">UN/DSS Security Mission - Santo Domingo</p>
+                            <p class="text-sm text-gray-600">Mission ID: SDQ-2026-001 | Date: 13-14 July 2026</p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <h3 class="font-bold text-gray-800 border-b pb-1">1. PRELIMINARIES</h3>
+                                <div class="ml-4 mt-2">
+                                    <p><strong>Mission Objective:</strong> Provide close protection and secure transport for UN Special Envoy during diplomatic meetings in Santo Domingo</p>
+                                    <p><strong>Principal:</strong> UN Special Envoy, Blood Type: O+, Medical Priority: P1</p>
+                                    <p><strong>Duration:</strong> 2 days (13-14 July 2026)</p>
+                                    <p><strong>Team Size:</strong> 8 personnel</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="font-bold text-gray-800 border-b pb-1">2. RECEPTION ARRANGEMENTS</h3>
+                                <div class="ml-4 mt-2">
+                                    <p><strong>Arrival:</strong> Las Américas International Airport, 13 Jul 14:30</p>
+                                    <p><strong>Reception Team:</strong> 2x CPO, 1x Driver, 1x Communications</p>
+                                    <p><strong>Protocol:</strong> VIP lane clearance, diplomatic vehicle escort</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="font-bold text-gray-800 border-b pb-1">3. ROAD MOVEMENT PLAN</h3>
+                                <div class="ml-4 mt-2">
+                                    <table class="w-full border border-gray-300 text-xs">
+                                        <thead class="bg-gray-100">
+                                            <tr>
+                                                <th class="border border-gray-300 p-2">Route</th>
+                                                <th class="border border-gray-300 p-2">Distance</th>
+                                                <th class="border border-gray-300 p-2">Duration</th>
+                                                <th class="border border-gray-300 p-2">Risk Level</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="border border-gray-300 p-2">Primary: Airport → Autopista → Hotel</td>
+                                                <td class="border border-gray-300 p-2">32.5 km</td>
+                                                <td class="border border-gray-300 p-2">45 min</td>
+                                                <td class="border border-gray-300 p-2 text-green-600">LOW</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border border-gray-300 p-2">Secondary: Airport → Circunvalación → Hotel</td>
+                                                <td class="border border-gray-300 p-2">38.2 km</td>
+                                                <td class="border border-gray-300 p-2">55 min</td>
+                                                <td class="border border-gray-300 p-2 text-yellow-600">MEDIUM</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="font-bold text-gray-800 border-b pb-1">4. CLOSE PROTECTION DETAIL</h3>
+                                <div class="ml-4 mt-2">
+                                    <p><strong>Primary CPO:</strong> Principal protection (continuous)</p>
+                                    <p><strong>Secondary CPO:</strong> Route reconnaissance and venue security</p>
+                                    <p><strong>Tertiary CPO:</strong> Backup and emergency response</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="font-bold text-gray-800 border-b pb-1">5. MEDICAL SUPPORT</h3>
+                                <div class="ml-4 mt-2">
+                                    <p><strong>1st Line:</strong> Team medic with trauma kit</p>
+                                    <p><strong>2nd Line:</strong> Standby ambulance coordination</p>
+                                    <p><strong>3rd Line:</strong> Hospital Centro Médico UCE (5.2 km from hotel)</p>
+                                    <p><strong>4th Line:</strong> Medical evacuation to Miami (if required)</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="font-bold text-gray-800 border-b pb-1">6. COMMUNICATIONS PLAN</h3>
+                                <div class="ml-4 mt-2">
+                                    <p><strong>Primary:</strong> Encrypted radio network (Channel 1)</p>
+                                    <p><strong>Secondary:</strong> Secure mobile phones</p>
+                                    <p><strong>Emergency:</strong> Satellite communication backup</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="font-bold text-gray-800 border-b pb-1">7. SAFE HAVENS</h3>
+                                <div class="ml-4 mt-2">
+                                    <p><strong>Primary:</strong> Hotel InterContinental (secure floor 12)</p>
+                                    <p><strong>Secondary:</strong> Embassy of [Country] - 2.1 km</p>
+                                    <p><strong>Emergency:</strong> Police Station Zona Colonial - 1.8 km</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t">
+                            <p class="text-xs text-gray-500">&copy; 2026 TactiCore AI | Classification: FOR OFFICIAL USE ONLY</p>
+                            <p class="text-xs text-gray-500">Document Version: 1.0 | Last Updated: 12 Jul 2026 18:45</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bulk Actions -->
+                <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-download mr-2 text-purple-600"></i>Bulk Actions
+                    </h3>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700">
+                            <i class="fas fa-file-archive mr-2"></i>Download All (ZIP)
+                        </button>
+                        <button class="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700">
+                            <i class="fas fa-file-pdf mr-2"></i>Export as PDF Bundle
+                        </button>
+                        <button class="bg-orange-600 text-white px-6 py-3 rounded-md hover:bg-orange-700">
+                            <i class="fas fa-table mr-2"></i>Export Routes as CSV
+                        </button>
+                        <button class="bg-purple-600 text-white px-6 py-3 rounded-md hover:bg-purple-700">
+                            <i class="fas fa-envelope mr-2"></i>Email Package
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Archive Tab -->
+        <div id="archive" class="tab-content hidden">
+            <div class="space-y-6">
+                <!-- Search and Filter -->
+                <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-search mr-2 text-blue-600"></i>Search Archive
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <input type="text" placeholder="Mission ID or Location" class="p-3 border border-gray-300 rounded-md">
+                        <input type="date" class="p-3 border border-gray-300 rounded-md">
+                        <select class="p-3 border border-gray-300 rounded-md">
+                            <option>All Status</option>
+                            <option>Approved</option>
+                            <option>Pending</option>
+                            <option>Draft</option>
+                        </select>
+                        <button class="bg-blue-600 text-white px-4 py-3 rounded-md hover:bg-blue-700">
+                            <i class="fas fa-search mr-2"></i>Search
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Archived Missions -->
+                <div class="bg-white p-6 rounded-lg shadow-md mission-card">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-archive mr-2 text-green-600"></i>Archived Missions
+                    </h3>
+                    <div class="no-scroll">
+                        <table class="w-full border border-gray-200">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="border border-gray-200 p-3 text-left">Mission ID</th>
+                                    <th class="border border-gray-200 p-3 text-left">Location</th>
+                                    <th class="border border-gray-200 p-3 text-left">Date</th>
+                                    <th class="border border-gray-200 p-3 text-left">Status</th>
+                                    <th class="border border-gray-200 p-3 text-left">Team Size</th>
+                                    <th class="border border-gray-200 p-3 text-left">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-200 p-3">SDQ-2026-001</td>
+                                    <td class="border border-gray-200 p-3">Santo Domingo, DR</td>
+                                    <td class="border border-gray-200 p-3">13-14 Jul 2026</td>
+                                    <td class="border border-gray-200 p-3">
+                                        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm">Pending</span>
+                                    </td>
+                                    <td class="border border-gray-200 p-3">8</td>
+                                    <td class="border border-gray-200 p-3">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-800">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-800">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                            <button class="text-purple-600 hover:text-purple-800">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-200 p-3">HAC-2026-003</td>
+                                    <td class="border border-gray-200 p-3">Port-au-Prince, Haiti</td>
+                                    <td class="border border-gray-200 p-3">08-10 Jul 2026</td>
+                                    <td class="border border-gray-200 p-3">
+                                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">Completed</span>
+                                    </td>
+                                    <td class="border border-gray-200 p-3">12</td>
+                                    <td class="border border-gray-200 p-3">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-800">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-800">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                            <button class="text-purple-600 hover:text-purple-800">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-200 p-3">KIN-2026-005</td>
+                                    <td class="border border-gray-200 p-3">Kinshasa, DRC</td>
+                                    <td class="border border-gray-200 p-3">01-05 Jul 2026</td>
+                                    <td class="border border-gray-200 p-3">
+                                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">Completed</span>
+                                    </td>
+                                    <td class="border border-gray-200 p-3">15</td>
+                                    <td class="border border-gray-200 p-3">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-800">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-800">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                            <button class="text-purple-600 hover:text-purple-800">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-200 p-3">BGI-2026-002</td>
+                                    <td class="border border-gray-200 p-3">Bujumbura, Burundi</td>
+                                    <td class="border border-gray-200 p-3">25-27 Jun 2026</td>
+                                    <td class="border border-gray-200 p-3">
+                                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">Completed</span>
+                                    </td>
+                                    <td class="border border-gray-200 p-3">6</td>
+                                    <td class="border border-gray-200 p-3">
+                                        <div class="flex space-x-2">
+                                            <button class="text-blue-600 hover:text-blue-800">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-800">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                            <button class="text-purple-600 hover:text-purple-800">
+                                                <i class="fas fa-copy"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Storage Statistics -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center mission-card">
+                        <i class="fas fa-database text-4xl text-blue-600 mb-3"></i>
+                        <h3 class="text-2xl font-bold text-gray-800">247</h3>
+                        <p class="text-gray-600">Total Missions</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center mission-card">
+                        <i class="fas fa-hard-drive text-4xl text-green-600 mb-3"></i>
+                        <h3 class="text-2xl font-bold text-gray-800">2.3 GB</h3>
+                        <p class="text-gray-600">Storage Used</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center mission-card">
+                        <i class="fas fa-calendar-check text-4xl text-purple-600 mb-3"></i>
+                        <h3 class="text-2xl font-bold text-gray-800">18</h3>
+                        <p class="text-gray-600">This Month</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div id="progressBar" class="fixed bottom-4 right-4 bg-white p-4 rounded-lg shadow-lg border hidden">
+            <div class="flex items-center space-x-3">
+                <div class="animate-spin">
+                    <i class="fas fa-spinner text-blue-600"></i>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-800" id="progressText">Processing...</p>
+                    <div class="w-48 bg-gray-200 rounded-full h-2 mt-1">
+                        <div class="bg-blue-600 h-2 rounded-full transition-all duration-500" id="progressFill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-6 mt-12">
+        <div class="container mx-auto">
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="text-sm">&copy; 2026 TactiCore AI | UN/DSS Security Mission Planning System</p>
+                    <p class="text-xs text-gray-400">Classification: FOR OFFICIAL USE ONLY | Compliant with DSS protocols</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm">Budget-Optimized Solution</p>
+                    <p class="text-xs text-gray-400">Powered by AI | Secure | Reliable</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.getAttribute('data-tab');
+                    
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active', 'border-blue-500', 'text-blue-600');
+                        btn.classList.add('text-gray-600');
+                    });
+                    
+                    button.classList.add('active', 'border-blue-500', 'text-blue-600');
+                    button.classList.remove('text-gray-600');
+                    
+                    tabContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    
+                    document.getElementById(targetTab).classList.remove('hidden');
+                });
+            });
+
+            // Initialize threat chart
+            initializeThreatChart();
+        });
+
+        // Progress bar functionality
+        function showProgress(text, duration = 3000) {
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const progressFill = document.getElementById('progressFill');
+            
+            progressText.textContent = text;
+            progressBar.classList.remove('hidden');
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 2;
+                progressFill.style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        progressBar.classList.add('hidden');
+                        progressFill.style.width = '0%';
+                    }, 500);
+                }
+            }, duration / 50);
+        }
+
+        // Mission generation
+        function generateMission() {
+            showProgress('Pulling OSINT intelligence...', 2000);
+            
+            setTimeout(() => {
+                showProgress('Generating secure routes...', 2000);
+            }, 2000);
+            
+            setTimeout(() => {
+                showProgress('Allocating team tasks...', 2000);
+            }, 4000);
+            
+            setTimeout(() => {
+                showProgress('Compiling documents...', 2000);
+            }, 6000);
+            
+            setTimeout(() => {
+                alert('Mission plan generated successfully! Review tabs for detailed information.');
+            }, 8000);
+        }
+
+        // Route generation
+        function generateRoutes() {
+            showProgress('Analyzing route parameters...', 1500);
+            
+            setTimeout(() => {
+                showProgress('Pulling real-time traffic data...', 1500);
+            }, 1500);
+            
+            setTimeout(() => {
+                showProgress('Assessing security threats...', 1500);
+            }, 3000);
+            
+            setTimeout(() => {
+                const start = document.getElementById("start-point").value;
+                const end = document.getElementById("end-point").value;
+
+                // Initialize OpenStreetMap maps
+                let mapPrimary = L.map('map-primary').setView([18.4655, -69.9117], 12);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(mapPrimary);
+
+                let mapSecondary = L.map('map-secondary').setView([18.4655, -69.9117], 12);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(mapSecondary);
+
+                let mapEmergency = L.map('map-emergency').setView([18.4655, -69.9117], 12);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(mapEmergency);
+
+                alert('Routes generated! Check the Generated Routes section for detailed analysis and maps.');
+            }, 4500);
+        }
+
+        // Task allocation
+        function allocateTasks() {
+            showProgress('Analyzing team composition...', 1000);
+            
+            setTimeout(() => {
+                showProgress('Matching roles to mission requirements...', 1000);
+            }, 1000);
+            
+            setTimeout(() => {
+                alert('Tasks allocated successfully! Review assignments and make manual adjustments if needed.');
+            }, 2000);
+        }
+
+        // Initialize threat assessment chart
+        function initializeThreatChart() {
+            const ctx = document.getElementById('threatChart');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Crime', 'Political Unrest', 'Natural Hazards', 'Terrorism', 'Other'],
+                        datasets: [{
+                            data: [35, 20, 25, 15, 5],
+                            backgroundColor: [
+                                '#EF4444',
+                                '#F59E0B',
+                                '#10B981',
+                                '#8B5CF6',
+                                '#6B7280'
+                            ],
+                            borderWidth: 2,
+                            borderColor: '#FFFFFF'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 20,
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Threat Distribution - Santo Domingo',
+                                font: {
+                                    size: 16,
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // File upload simulation
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('input[type="file"]') || e.target.closest('button:contains("Browse Files")')) {
+                setTimeout(() => {
+                    showProgress('Uploading template files...', 2000);
+                }, 100);
+            }
+        });
+
+        // Auto-save functionality
+        setInterval(() => {
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                const inputs = form.querySelectorAll('input, textarea, select');
+                inputs.forEach(input => {
+                    if (input.value) {
+                        localStorage.setItem(input.name || input.id || 'backup', input.value);
+                    }
+                });
+            });
+        }, 30000); // Auto-save every 30 seconds
+    </script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"96fd78b578fb00a5","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.8.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+</body>
+</html>
