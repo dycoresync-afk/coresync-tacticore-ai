@@ -4,9 +4,7 @@ coresync-tacticore-ai/
 ├── .gitignore                # Standard Python ignores
 ├── requirements.txt          # Dependencies (e.g., torch, solana-py)
 ├── setup.py                  # For packaging
-├── .github/
-│   └── workflows/
-│       └── ci.yml            # Basic CI for tests
+├── test/                     # Test version
 ├── src/
 │   ├── __init__.py
 │   ├── tacticore/
