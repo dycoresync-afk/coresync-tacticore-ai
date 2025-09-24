@@ -20,7 +20,7 @@
 
 ## 🛠 Tech Stack
 - **AI/ML**: PyTorch, [SHAP (XAI)](xai_module.md)
-- **Data**: Pandas, OSINT libs
+- **Data**: UN DSS SOP, US Army SOP, South Korea Presidential Security Service SOP
 - **Web3 (Planned)**: Solana-py for zk-proofs/audits on Seeker phone
 - **Deployment**: Docker-ready
 
