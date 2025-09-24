@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TactiCore AI - Security Mission Planning System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .pdf-optimized {
+            min-height: 100vh;
+            overflow: visible;
+        }
+        .no-scroll {
+            overflow: visible !important;
+            max-height: none !important;
+        }
+        .chart-container {
+            height: 400px;
+        }
+        .mission-card {
+            break-inside: avoid;
+        }
+         {
+            body { margin: 0; padding: 20px; }
+            .no-print { display: none !important; }
+        }
+        #map-primary, #map-secondary, #map-emergency {
+            height: 300px;
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 pdf-optimized">
+    <!-- Header -->
+    <header class="bg-blue-900 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-shield-alt text-3xl"></i>
+                <div>
+                    <h1 class="text-2xl font-bold">TactiCore AI</h1>
+                    <p class="text-blue-200">Security Mission Planning System</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="bg-green-500 px-3 py-1 rounded-full text-sm">
+                    <i class="fas fa-circle text-xs mr-1"></i>System Online
+                </span>
+                <span class="text-sm">2026 Budget Optimized</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <div class="container mx-auto p-6 space-y-6">
+        
+        <!-- Navigation Tabs -->
+        <div class="bg-white rounded-lg shadow-md">
+            <div class="flex border-b overflow-x-auto no-scroll" id="tabNav">
+                <button class="tab-btn active px-6 py-3 border-b-2 border-blue-500 text-blue-600 font-medium whitespace-nowrap" data-tab="mission-setup">
+                    <i class="fas fa-plus-circle mr-2"></i>Mission Setup
+                </button>
+                <button class="tab-btn px-6 py-3 text-gray-600 hover:text-blue-600 whitespace-nowrap" data-tab="route-generation">
+                    <i class="fas fa-route mr-2"></i>Route Generation
+                </button>
+                <button class="tab-btn px-6 py-3 text-gray-600 hover:text-blue-600 whitespace-nowrap" data-tab="intelligence">
+                    <i class="fas fa-eye mr-2"></i>Intelligence Dashboard
+                </button>
+                <button class="tab-btn px-6 py-3 text-gray-600 hover:text-blue-600 whitespace-nowrap" data-tab="task-allocation">
+                    <i class="fas fa-users mr-2"></i>Task Allocation
+                </button>
+                <button class="tab-btn px-6 py-3 text-gray-600 hover:text-blue-600 whitespace-nowrap" data-tab="approvals">
+                    <i class="fas fa-check-circle mr-2"></i>Approvals
+                </button>
+                <button class="tab-btn px-6 py-3 text-gray-600 hover:text-blue-600 whitespace-nowrap" data-tab="documents
