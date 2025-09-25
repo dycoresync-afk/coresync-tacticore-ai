@@ -1,7 +1,6 @@
 # CoreSync: TactiCore AI 🚀
 
 [![Stars](https://img.shields.io/github/stars/dycoresync-afk/coresync-tacticore-ai)](https://github.com/yourusername/coresync-tacticore-ai/stargazers)
-[![License](https://img.shields.io/github/license/dycoresync-afk/coresync-tacticore-ai)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
 [![Awesome Badge](https://img.shields.io/badge/Awesome-DefSec%20AI-brightgreen)](https://github.com/dycoresync-afk/coresync-tacticore-ai)
 
