@@ -5,23 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoreSync: AI-Powered Mission Planning</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #000;
+            margin: 0;
+            padding: 0;
         }
         .slide {
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
             padding: 2rem;
-            text-align: center;
-            background-color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
+            position: relative;
+            box-sizing: border-box;
+            page-break-after: always;
         }
         .title {
             font-size: 4rem;
@@ -35,18 +35,20 @@
         .footer {
             position: absolute;
             bottom: 1rem;
+            left: 2rem;
             color: #6b7280;
+            font-size: 1rem;
         }
         .list-item {
             display: flex;
-            align-items: baseline;
+            align-items: flex-start;
             margin-bottom: 1rem;
             text-align: left;
         }
         .number {
             width: 2rem;
             height: 2rem;
-            border: 1px solid black;
+            border: 1px solid #000;
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -58,9 +60,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-right: 2rem;
         }
         .circle {
-            border: 1px solid black;
+            border: 1px solid #000;
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -69,23 +72,26 @@
             margin-bottom: 1rem;
         }
         .large-circle {
-            width: 12rem;
-            height: 12rem;
-            font-size: 3rem;
-        }
-        .medium-circle {
-            width: 10rem;
-            height: 10rem;
-            font-size: 2.5rem;
-        }
-        .small-circle {
             width: 8rem;
             height: 8rem;
             font-size: 2rem;
         }
+        .medium-circle {
+            width: 6rem;
+            height: 6rem;
+            font-size: 1.5rem;
+        }
+        .small-circle {
+            width: 4rem;
+            height: 4rem;
+            font-size: 1rem;
+        }
         .side-text {
             text-align: left;
-            margin-left: 2rem;
+        }
+        .faq-question {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
         }
         .cta-button {
             background-color: #3b82f6;
@@ -95,9 +101,10 @@
             font-weight: bold;
             margin-top: 2rem;
         }
-        .faq-question {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
+        .flex-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
     </style>
 </head>
@@ -115,21 +122,21 @@
         <div class="list-item">
             <span class="number">1</span>
             <div>
-                <p class="font-bold">Rising Complexity</p>
+                <p>Rising Complexity</p>
                 <p>Geopolitical instability, urban threats, evolving attack vectors</p>
             </div>
         </div>
         <div class="list-item">
             <span class="number">2</span>
             <div>
-                <p class="font-bold">Legacy Tools Failing</p>
+                <p>Legacy Tools Failing</p>
                 <p>Slow, siloed systems limiting operational agility</p>
             </div>
         </div>
         <div class="list-item">
             <span class="number">3</span>
             <div>
-                <p class="font-bold">Data Synthesis Gap</p>
+                <p>Data Synthesis Gap</p>
                 <p>No explainable tools to rapidly adapt to unfolding scenarios</p>
             </div>
         </div>
@@ -139,15 +146,26 @@
     <!-- Massive Market Opportunity Slide -->
     <section class="slide">
         <h1 class="title">Massive Market Opportunity</h1>
-        <div class="circle-diagram">
-            <div class="circle large-circle">50B</div>
-            <div class="circle medium-circle">20B</div>
-            <div class="circle small-circle">20M ARR</div>
-        </div>
-        <div class="side-text">
-            <p><strong>TAM</strong><br>$50B in 2025, $100B in 2030 (CAGR 15%)<br>Defense - $27.9B<br>Law enforcement - $10B<br>Enterprise Security - $12B<br>*Mordor Intelligence, Market.us, Verified Market Report</p>
-            <p><strong>SAM</strong><br>Focus : Mission-critical ops in North America and Europe<br>(33%+ of global market)<br>Targets : Defense (DoD, NATO), law enforement (Interpol,<br>federal agencies) and enterprise security firms</p>
-            <p><strong>SOM</strong><br>0.05% of SAM, Achievable via 100 contracts with UN, DoD<br>and enterprise cllients, leveraging founders’ agency ties<br>and AUSA 2025 demos</p>
+        <div class="flex-row">
+            <div class="circle-diagram">
+                <div class="large-circle">50B</div>
+                <div class="medium-circle">20B</div>
+                <div class="small-circle">20M ARR</div>
+            </div>
+            <div class="side-text">
+                <p>TAM</p>
+                <p>$50B in 2025, $100B in 2030 (CAGR 15%)</p>
+                <p>Defense - $27.9B</p>
+                <p>Law enforcement - $10B</p>
+                <p>Enterprise Security - $12B </p>
+                <p>*Mordor Intelligence, Market.us, Verified Market Report</p>
+                <p>SAM</p>
+                <p>Focus : Mission-critical ops in North America and Europe</p>
+                <p>(33%+ of global market)</p>
+                <p>Targets : Defense (DoD, NATO), law enforcement (Interpol, federal agencies) and enterprise security firms</p>
+                <p>SOM</p>
+                <p>0.05% of SAM, Achievable via 100 contracts with UN, DoD and enterprise clients, leveraging founders’ agency ties and AUSA 2025 demos</p>
+            </div>
         </div>
         <p class="footer">CORESYNC</p>
     </section>
@@ -160,8 +178,7 @@
         <p>Operational Complexity</p>
         <p>Legacy tools fail in 70% of dynamic scenarios, costing $500M+ in delays annually </p>
         <p>CoreSync’s Edge</p>
-        <p>TactiCore AI’s real-time data fusion and explainable AI meet compliance and operational needs,</p>
-        <p>positioning us to capture a $100B market by 2030.</p>
+        <p>TactiCore AI’s real-time data fusion and explainable AI meet compliance and operational needs, positioning us to capture a $100B market by 2030.</p>
         <p class="footer">CORESYNC</p>
     </section>
 
@@ -427,7 +444,7 @@
     <section class="slide">
         <h1 class="title">Mission: Building the AI Backbone for Global Security</h1>
         <p>JOIN US IN TRANSFORMING NATIONAL AND ENTERPRISE SECURITY FOR A NEW ERA</p>
-        <button class="cta-button">Let’s Outsmart Tomorrow’s Threats, Together</button>
+        <p>Let’s Outsmart Tomorrow’s Threats, Together</p>
         <p class="footer">CORESYNC</p>
     </section>
 
@@ -435,7 +452,6 @@
     <section class="slide">
         <h1 class="title">Appendix & FAQ</h1>
         <p>Customers still using MS Word, Excel hand typing, NO OpsSEC, NO AI at all</p>
-        <p>FAQ</p>
         <p class="faq-question">Q. How do you handle data privacy and compliance?</p>
         <p>We encrypt data end-to-end, comply with GDPR/CCPA, and provide on-prem/cloud options with strict, role-based access.</p>
         <p class="faq-question">Q. What makes your AI unique?</p>
