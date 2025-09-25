@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreSync: AI-Powered Mission Planning</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        .title {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .footer {
+            position: absolute;
+            bottom: 1rem;
+            color: #6b7280;
+        }
+        .list-item {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        .number {
+            width: 2rem;
+            height: 2rem;
+            border: 1px solid black;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+        .circle-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .circle {
+            border: 1px solid black;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .large-circle {
+            width: 12rem;
+            height: 12rem;
+            font-size: 3rem;
+        }
+        .medium-circle {
+            width: 10rem;
+            height: 10rem;
+            font-size: 2.5rem;
+        }
+        .small-circle {
+            width: 8rem;
+            height: 8rem;
+            font-size: 2rem;
+        }
+        .side-text {
+            text-align: left;
+            margin-left: 2rem;
+        }
+        .cta-button {
+            background-color: #3b82f6;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            margin-top: 2rem;
+        }
+        .faq-question {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Slide -->
+    <section class="slide">
+        <h1 class="title">CoreSync: AI-Powered Mission Planning</h1>
+        <p class="subtitle">ACCELERATING REAL-TIME, DATA-DRIVEN DECISIONS FOR DEFENSE, LAW ENFORCEMENT, AND ENTERPRISE SECURITY</p>
+        <p class="footer">CoreSync</p>
+    </section>
+
+    <!-- Modern Security Operations Crisis Slide -->
+    <section class="slide">
+        <h1 class="title">Modern Security Operations Crisis</h1>
+        <div class="list-item">
+            <span class="number">1</span>
+            <div>
+                <p class="font-bold">Rising Complexity</p>
+                <p>Geopolitical instability, urban threats, evolving attack vectors</p>
+            </div>
+        </div>
+        <div class="list-item">
+            <span class="number">2</span>
+            <div>
+                <p class="font-bold">Legacy Tools Failing</p>
+                <p>Slow, siloed systems limiting operational agility</p>
+            </div>
+        </div>
+        <div class="list-item">
+            <span class="number">3</span>
+            <div>
+                <p class="font-bold">Data Synthesis Gap</p>
+                <p>No explainable tools to rapidly adapt to unfolding scenarios</p>
+            </div>
+        </div>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- Massive Market Opportunity Slide -->
+    <section class="slide">
+        <h1 class="title">Massive Market Opportunity</h1>
+        <div class="circle-diagram">
+            <div class="circle large-circle">50B</div>
+            <div class="circle medium-circle">20B</div>
+            <div class="circle small-circle">20M ARR</div>
+        </div>
+        <div class="side-text">
+            <p><strong>TAM</strong><br>$50B in 2025, $100B in 2030 (CAGR 15%)<br>Defense - $27.9B<br>Law enforcement - $10B<br>Enterprise Security - $12B<br>*Mordor Intelligence, Market.us, Verified Market Report</p>
+            <p><strong>SAM</strong><br>Focus : Mission-critical ops in North America and Europe<br>(33%+ of global market)<br>Targets : Defense (DoD, NATO), law enforement (Interpol,<br>federal agencies) and enterprise security firms</p>
+            <p><strong>SOM</strong><br>0.05% of SAM, Achievable via 100 contracts with UN, DoD<br>and enterprise cllients, leveraging founders’ agency ties<br>and AUSA 2025 demos</p>
+        </div>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- Why now? Slide -->
+    <section class="slide">
+        <h1 class="title">Why now?</h1>
+        <p>Geopolitical Urgency</p>
+        <p>Rising tensions drive $1.8B DoD AI investments (FY-25) [Defense One, 2025].</p>
+        <p>Operational Complexity</p>
+        <p>Legacy tools fail in 70% of dynamic scenarios, costing $500M+ in delays annually </p>
+        <p>CoreSync’s Edge</p>
+        <p>TactiCore AI’s real-time data fusion and explainable AI meet compliance and operational needs,</p>
+        <p>positioning us to capture a $100B market by 2030.</p>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- Introducing TactiCore AI Slide -->
+    <section class="slide">
+        <h1 class="title">Introducing TactiCore AI by CoreSync</h1>
+        <p>Predictive analytics with real-time data fusion</p>
+        <p>Field-ready UX with modular APIs</p>
+        <p>Explainable AI for trust and compliance</p>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- Core Capabilities Slide -->
+    <section class="slide">
+        <h1 class="title">Core Capabilities</h1>
+        <p>Multi-Domain Threat Detection</p>
+        <p>Air, land, sea, and cyber domains are monitored in real-time</p>
+        <p>Scenario Wargaming</p>
+        <p>Automated resource allocation with predictive outcomes</p>
+        <p>Mobile Operator Access</p>
+        <p>Field-ready data fusion from sensors, OSINT, CCTV</p>
+        <p>Explainable AI</p>
+        <p>Actionable, auditable insights for mission-critical decisions</p>
+        <p>Our Edge: TactiCore AI delivers unmatched speed, trust, and adaptability, purpose-built for the chaos of modern security operations, where legacy systems and generic AI fall short.</p>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- Why TactiCore AI Wins Slide -->
+    <section class="slide">
+        <h1 class="title">Why TactiCore AI by CoreSync Wins</h1>
+        <table class="table-auto w-full text-left">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2">Features</th>
+                    <th class="px-4 py-2">TactiCore by CoreSync</th>
+                    <th class="px-4 py-2">Others (Palantir, Anduril, etc.)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="border px-4 py-2">Real-time data fusion</td>
+                    <td class="border px-4 py-2">OSINT, CCTV instantly across air, land, sea, and cyber.</td>
+                    <td class="border px-4 py-2">Siloed, delayed data processing; limited domains.</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Field-ready mobility</td>
+                    <td class="border px-4 py-2">Intuitive mobile UX and modular APIs for operators under pressure.</td>
+                    <td class="border px-4 py-2">Clunky, stationary platforms; rigid integrations.</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Explainable AI</td>
+                    <td class="border px-4 py-2">Transparent, auditable insights meeting strict compliance (e.g., GDPR, DoD).</td>
+                    <td class="border px-4 py-2">Opaque “black box” models; regulatory risks.</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Crisis-driven design</td>
+                    <td class="border px-4 py-2">Built with operators for real-world chaos; rapid deployment in high-stakes missions.</td>
+                    <td class="border px-4 py-2">Generic solutions; slow to adapt to urgent needs.</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- Competitive Landscape Slide -->
+    <section class="slide">
+        <h1 class="title">Competitive Landscape</h1>
+        <p>Web3 as Enhancer - Future-Proofing Mission Planning</p>
+        <ul class="list-disc list-inside text-left">
+            <li>Core AI Focus: TactiCore AI solves $500M delays (70% failure rate), with 30% cost savings, 50% faster deployment, GDPR/DoD-compliant.</li>
+            <li>Web3 Value-Add: Blockchain boosts security, transparency, automation for UN/DoD/NATO.</li>
+            <li>Auditability: Immutable logs on Hyperledger ensure compliance for UN DSS, NATO.</li>
+            <li>Data Sovereignty: Decentralized IDs for Frontex align with GDPR/DoD.</li>
+            <li>Smart Contracts: Automates logistics, enhancing 50% faster deployment.</li>
+            <li>Pilot (Q1 2026): $100K–$150K for UN DSS blockchain auditability, targeting EU/NATO.</li>
+            <li>Advantage: AI + Web3 differentiates vs. Palantir’s centralized model.</li>
+        </ul>
+        <table class="table-auto w-full text-left mt-4">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2">Feature</th>
+                    <th class="px-4 py-2">TactiAI by CoreSync</th>
+                    <th class="px-4 py-2">Palantir Gotham</th>
+                    <th class="px-4 py-2">Anduril Lattice</th>
+                    <th class="px-4 py-2">Legacy CAD/RMS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="border px-4 py-2">Pricing</td>
+                    <td class="border px-4 py-2">$5k-$50k/month</td>
+                    <td class="border px-4 py-2">$50k+/month</td>
+                    <td class="border px-4 py-2">$100k+/month</td>
+                    <td class="border px-4 py-2">$10k-$30k/month</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Deployment Time</td>
+                    <td class="border px-4 py-2">50% faster (2-4 weeks)</td>
+                    <td class="border px-4 py-2">8-12 weeks</td>
+                    <td class="border px-4 py-2">6-10 weeks</td>
+                    <td class="border px-4 py-2">12+ weeks</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Explainable AI</td>
+                    <td class="border px-4 py-2">Built-in, compliance-ready</td>
+                    <td class="border px-4 py-2">Limited</td>
+                    <td class="border px-4 py-2">Partial</td>
+                    <td class="border px-4 py-2">None</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Integration</td>
+                    <td class="border px-4 py-2">Modular APIs, flexible</td>
+                    <td class="border px-4 py-2">Complex, proprietary</td>
+                    <td class="border px-4 py-2">Moderate</td>
+                    <td class="border px-4 py-2">Siloed, rigid</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- Business Model Slide -->
+    <section class="slide">
+        <h1 class="title">Business Model</h1>
+        <p>Scalable SaaS for Mission-Critical Operations</p>
+        <p>Tiered Subscription Model:</p>
+        <ul class="list-disc list-inside text-left">
+            <li>Basic: $5K/month (10 users, cloud deployment).</li>
+            <li>Pro: $15K/month (50 users, on-prem option).</li>
+            <li>Enterprise: $50K/month (unlimited users, bespoke integrations, dedicated support).</li>
+        </ul>
+        <p>Revenue Streams:</p>
+        <ul class="list-disc list-inside text-left">
+            <li>Subscriptions: 80% of revenue ($16M of $20M ARR by Year 5).</li>
+            <li>Setup Fees: 15% ($10K-$50K per on-prem deployment).</li>
+            <li>API Licensing: 5% ($20K/year per partner).</li>
+        </ul>
+        <p>Pricing Advantage: 30% lower than competitors (e.g., Palantir’s $50K/month), with faster deployment and compliance-ready AI.</p>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- Customer Acquisition Plan Slide -->
+    <section class="slide">
+        <h1 class="title">Customer Acquisition Plan</h1>
+        <p>Targeted Growth for High-Impact Markets</p>
+        <p>Our Edge: Precision targeting and deep industry connections ensure rapid adoption, driving $20M ARR by year 5 </p>
+        <p>Sales Funnel: Inbound by whitepapers, webinars for thought leadership, Outbound by direct outreach to 50+ agency decision-makers and convert 20% pilot-to-contract rates, 6 month sales cycle</p>
+        <p>Target Customers</p>
+        <p>Tier 1: UN, US DoD, NATO, enterprise security firms (e.g., Securitas).</p>
+        <p>Phase 1 (0-12 months)</p>
+        <p>Secure 3 pilot contracts ($500K ARR) via founders’ agency ties and AUSA 2025 demos.</p>
+        <p>Leverage advisory board (e.g., H.E. Martin Kobler).</p>
+        <p>Phase 2 (12-24 months)</p>
+        <p>Expand to 10 contracts ($3M ARR), mix of Basic and Pro tiers.</p>
+        <p>Partner with integrators (e.g., Lockheed Martin) for scale.</p>
+        <p>Streamline government procurement with pre-vetted compliance.</p>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- Initial Targets Slide -->
+    <section class="slide">
+        <h1 class="title">Initial Targets</h1>
+        <p>Building Early Traction with High-Impact Clients</p>
+        <p>Current Progress:</p>
+        <p>Targeting to obtain ‘Letter of intent’ from UN Dept. of Safety and Security (DSS) for Q1 2026 pilot </p>
+        <p>(Min $50K contract, contact: Mario Radat, Security Coordination Officer/UN DSS, UN Iraq mission alumni).</p>
+        <p>Targeting field tests with UN Emergency Rescue Missions for Q2 2026 </p>
+        <p>(Min $150k contract, contact Martina Dragovic, Head of UN Emergency Rescue Missions, UN Iraq mission alumni).</p>
+        <p>Establish demos schedule with min 3 DoD officials at AUSA 2025, targeting pilot contracts by Q2 2026.</p>
+        <p>Beta testing planned with 2 UN mission security teams (UNTSO, UNSCO and UNSOM), feedback due Q4 2025.</p>
+        <p>Pipeline: </p>
+        <p>Leveraging Iraq mission alumni network for field tests with UN Truce Supervision Organization (Jerusalem) and UN Agencies.</p>
+        <p>Why It Works: </p>
+        <p>Founders’ agency ties and advisory board (e.g., H.E. Martin Kobler) accelerate trust and procurement, ensuring rapid adoption.</p>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- Risk & Mitigation Slide -->
+    <section class="slide">
+        <h1 class="title">Risk & Mitigation</h1>
+        <p>Key Risks and How CoreSync Addresses Them </p>
+        <p>Revenue: </p>
+        <p>Diversified customer base (DoD, UN, enterprise) and high retention (90% vs. industry 85%) ensure stability.</p>
+        <p>Data Bias: </p>
+        <p>Embedded XAI with continuous monitoring, third-party audit by Deloitte , ensures transparency.</p>
+        <p>Regulatory Concerns: </p>
+        <p>Proactive GDPR/DoD compliance, external legal reviews, and flexible architecture for global markets.</p>
+        <p>Security Threats: </p>
+        <p>Adversarial testing, red-teaming, and localized hosting with strict encryption protect data.</p>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- Financial Projections Slide -->
+    <section class="slide">
+        <h1 class="title">Financial Projections</h1>
+        <p>Path to $20M ARR and 78% Gross Margin by Year 5</p>
+        <p>Why it’s possible: Founders’ agency ties, compliance-ready AI, and low customer acquisition costs (30% below competitors) drive rapid, sustainable growth</p>
+        <p>Revenue Growth by Year:</p>
+        <p>Year 1: $500K ARR (3 pilot contracts, Basic tier at $5K/mo).</p>
+        <p>Year 2: $3M ARR (10 contracts, mix of Pro at $15K/mo and Basic).</p>
+        <p>Year 3: $8M ARR (30 contracts, including 5 Enterprise deals).</p>
+        <p>Year 5: $20M ARR (100 contracts, 60% Enterprise, 30% Pro, 10% Basic).</p>
+        <p>Target goal: $800M - $1B (15-20x ARR) valuation</p>
+        <p>Cost Structure:</p>
+        <p>COGS: Cloud hosting, data processing (~15% of revenue).</p>
+        <p>Operating Expenses: R&D (40%), Sales & Marketing (30%), G&A (15%).</p>
+        <p>Gross Margin: 78% by Year 5, driven by scalable SaaS model.</p>
+        <p>Milestones:</p>
+        <p>Year 1: Regulatory certifications (GDPR, DoD compliance).</p>
+        <p>Year 2: 8,000 active users across 10 teams.</p>
+        <p>Year 3: Partnerships with 2 major integrators (e.g., Lockheed Martin).</p>
+        <p>Year 5: 8,000+ active teams, global expansion to NATO allies.</p>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- Founding Team Slide -->
+    <section class="slide">
+        <h1 class="title">Founding Team</h1>
+        <p>Serial entrepreneur, 3 AI startups</p>
+        <p>Ex-Presidential Security Service</p>
+        <p>Ex-United Nations DPKO/DPA missions</p>
+        <p>DY</p>
+        <p>Yeji</p>
+        <p>AI pet care platform founder</p>
+        <p>Expert in strategy & scaling</p>
+        <p>First members of DY’s last startup</p>
+        <p>4 Startups 1 Exit $9m revenues, venture again for big thing </p>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- Advisory Board Slide -->
+    <section class="slide">
+        <h1 class="title">Advisory Board - in discussion</h1>
+        <p>Former Special Representative of the United Nations Secretary-General, German Senior Diplomat</p>
+        <p>H.E. Martin Kobler</p>
+        <p>H.E. Nikolay Mladenov</p>
+        <p>Former Minister of Defence, Former Minister of Foreign Affairs, Former Member of European Parliament</p>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- Super Strong Track Record Slide -->
+    <section class="slide">
+        <h1 class="title">Super strong track record</h1>
+        <p>DY, founder has extensive ties with the United Nations, when he served for the UN, he secured $30M from UN Security Council to prepare ISIS rising in Northern Iraq to protect civilians.</p>
+        <p>After secure $30M, he was in charge of selecting service providers and suppliers which directly strengthen CoreSync’s revenue generation</p>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- The Ask Slide -->
+    <section class="slide">
+        <h1 class="title">The ask: $500k Pre-Seed Round</h1>
+        <p>Target milestones: </p>
+        <p>10 major contracts</p>
+        <p>$5M ARR</p>
+        <p>Regulatory certifications</p>
+        <p>50% Product/R&D</p>
+        <p>30% Go-to-Market</p>
+        <p>20% Target market compliant (DoD Standard)</p>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- Mission Slide -->
+    <section class="slide">
+        <h1 class="title">Mission: Building the AI Backbone for Global Security</h1>
+        <p>JOIN US IN TRANSFORMING NATIONAL AND ENTERPRISE SECURITY FOR A NEW ERA</p>
+        <button class="cta-button">Let’s Outsmart Tomorrow’s Threats, Together</button>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+    <!-- Appendix & FAQ Slide -->
+    <section class="slide">
+        <h1 class="title">Appendix & FAQ</h1>
+        <p>Customers still using MS Word, Excel hand typing, NO OpsSEC, NO AI at all</p>
+        <p>FAQ</p>
+        <p class="faq-question">Q. How do you handle data privacy and compliance?</p>
+        <p>We encrypt data end-to-end, comply with GDPR/CCPA, and provide on-prem/cloud options with strict, role-based access.</p>
+        <p class="faq-question">Q. What makes your AI unique?</p>
+        <p>Built with crisis operators, our AI is explainable, modular, and deploys in real-world security workflows, unlike generic SaaS.</p>
+        <p class="faq-question">Q. How do you avoid algorithmic bias?</p>
+        <p>We test for bias, use curated data, enable manual overrides, and log all decisions for transparency.</p>
+        <p class="faq-question">Q. How do you win/go through government procurement?</p>
+        <p>Founders have direct agency ties, active pilots, and an advisory board that accelerates approvals and reduces sales cycles.</p>
+        <p class="faq-question">Q. What are your margins/economics?</p>
+        <p>Target 70–80% gross margins at scale; pilots already positive per user, with disciplined burn.</p>
+        <p class="faq-question">Q. What’s your moat/defensibility?</p>
+        <p>Proprietary mission AI, exclusive sector data, deep customer relationships, and high compliance barriers.</p>
+        <p class="faq-question">Q. Biggest risks and mitigations?</p>
+        <p>Tech: manual backup, external audits. Regulatory: legal reviews, flexible architecture. Market: diversify beyond government.</p>
+        <p class="faq-question">Q. How do you ensure AI transparency?</p>
+        <p>Every output is logged, explainable, and subject to review/override auditable at all times.</p>
+        <p class="faq-question">Q. How is cross-border data secured?</p>
+        <p>Localized hosting, strict encryption, and compliance with local data sovereignty laws.</p>
+        <p class="faq-question">Q. International scaling—how?</p>
+        <p>Multilingual, modular platform with local advisors; can adapt to legal and operational differences per market.</p>
+        <p class="footer">CORESYNC</p>
+    </section>
+
+</body>
+</html>
