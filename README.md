@@ -17,6 +17,7 @@
 
 ## 🚀 Quickstart
 1. Run demo: `TactiCore_AI_Security_Planning_System.html'
+2. "Run python src/document_tracker.py for demo. Fund dev wallet with SOL testnet tokens."
 
 ## 🛠 Tech Stack
 - **AI/ML**: PyTorch, [SHAP (XAI)](xai_module.md)
