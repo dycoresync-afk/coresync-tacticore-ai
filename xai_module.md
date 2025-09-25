@@ -10,13 +10,13 @@ The XAI module is a core component of TactiCore AI, ensuring transparent, audita
 - **Scalability**: Supports modular integration with planned Web3 audit logs for tamper-proof records.
 
 ## Current Status
-- **Alpha Stage**: In active development with UNSCO/UNTSO security teams, focusing on initial fusion and explanation logic.
+- **Alpha Stage**: In active development with UN security teams, focusing on initial fusion and explanation logic.
 - **Key Features**:
   - Real-time explanation generation using SHAP (SHapley Additive exPlanations).
   - Stub implementation in `src/tacticore/explainable_ai.py` for threat assessment clarity.
   - Integration with data fusion module (`data_fusion.py`) for end-to-end traceability.
 - **Milestones**:
-  - Q4 2025: Alpha feedback from UN pilots.
+  - Q4 2025: Alpha feedback from UN test users.
   - Q1 2026: Full XAI rollout with UN DSS pilot ($100K), including compliance certs.
   - Y2: Scalable XAI for 10 contracts ($3M ARR).
 
