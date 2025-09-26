@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID and Document Auditing Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dashboard-card {
+            transition: box-shadow 0.3s ease;
+        }
+        .dashboard-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .alert-box {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .no-scroll { overflow: visible !important; }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-blue-900 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex items-center justify-between">
+            <h1 class="text-2xl font-bold">TactiCore AI - Auditing Dashboard</h1>
+            <span class="bg-green-500 px-3 py-1 rounded-full text-sm">
+                <i class="fas fa-circle text-xs mr-1"></i>Online
+            </span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-6 space-y-6">
+        <!-- Status Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="dashboard-card bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-shield-alt mr-2 text-blue-600"></i>System Status
+                </h3>
+                <p class="text-gray-600">Last Checked: 10:02 PM KST, Sep 26, 2025</p>
+                <div class="mt-4">
+                    <span class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">All Systems Operational</span>
+                </div>
+            </div>
+            <div class="dashboard-card bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-file-alt mr-2 text-green-600"></i>Documents Audited
+                </h3>
+                <p class="text-3xl font-bold text-gray-900">15</p>
+                <p class="text-gray-600 text-sm">Today</p>
+            </div>
+            <div class="dashboard-card bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-user-shield mr-2 text-red-600"></i>IDs Verified
+                </h3>
+                <p class="text-3xl font-bold text-gray-900">42</p>
+                <p class="text-gray-600 text-sm">This Week</p>
+            </div>
+        </div>
+
+        <!-- Audit Controls -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-cogs mr-2 text-blue-600"></i>Audit Controls
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Select File to Audit</label>
+                    <input type="file" id="auditFile" class="w-full p-3 border border-gray-300 rounded-md" accept=".json,.csv">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Stored Hash</label>
+                    <input type="text" id="storedHash" class="w-full p-3 border border-gray-300 rounded-md" placeholder="Enter stored hash (e.g., SHA-256)">
+                </div>
+            </div>
+            <button id="startAudit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex items-center">
+                <i class="fas fa-play mr-2"></i>Start Audit
+            </button>
+            <div id="auditStatus" class="mt-4 text-sm text-gray-600 hidden">
+                <p>Audit in progress...</p>
+            </div>
+        </div>
+
+        <!-- Audit Logs -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-history mr-2 text-green-600"></i>Audit Logs
+            </h3>
+            <div id="auditLogs" class="space-y-4 max-h-64 overflow-y-auto no-scroll">
+                <!-- Logs will be dynamically added here -->
+            </div>
+        </div>
+
+        <!-- Alerts Section -->
+        <div id="alerts" class="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg hidden alert-box">
+            <div class="flex items-center">
+                <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
+                <div>
+                    <p class="text-sm font-medium text-red-800" id="alertMessage">Tamper detected!</p>
+                    <p class="text-xs text-red-600" id="alertDetails">Check logs for details.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 mt-12 text-center">
+        <p>&copy; 2025 TactiCore AI | Powered by xAI</p>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const auditFile = document.getElementById('auditFile');
+        const storedHash = document.getElementById('storedHash');
+        const startAudit = document.getElementById('startAudit');
+        const auditStatus = document.getElementById('auditStatus');
+        const auditLogs = document.getElementById('auditLogs');
+        const alerts = document.getElementById('alerts');
+        const alertMessage = document.getElementById('alertMessage');
+        const alertDetails = document.getElementById('alertDetails');
+
+        // Simulate Python Backend (Replace with actual API call)
+        function computeHash(fileContent) {
+            let hash = 0;
+            for (let i = 0; i < fileContent.length; i++) {
+                hash = (hash << 5) - hash + fileContent.charCodeAt(i);
+                hash |= 0; // Convert to 32-bit integer
+            }
+            return hash.toString(16);
+        }
+
+        // Start Audit
+        startAudit.addEventListener('click', () => {
+            const file = auditFile.files[0];
+            if (!file || !storedHash.value) {
+                alert('Please select a file and enter a stored hash.');
+                return;
+            }
+
+            const reader = new FileReader();
+            auditStatus.classList.remove('hidden');
+            startAudit.disabled = true;
+
+            reader.onload = function(e) {
+                const fileContent = e.target.result;
+                const currentHash = computeHash(fileContent);
+                const storedHashValue = storedHash.value;
+
+                // Log the audit
+                const logEntry = document.createElement('div');
+                logEntry.className = 'border-l-4 border-gray-200 pl-4';
+                logEntry.innerHTML = `
+                    <p class="text-sm text-gray-700">Audit at ${new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Seoul' })} KST</p>
+                    <p class="text-sm text-gray-600">File: ${file.name}</p>
+                    <p class="text-sm text-gray-600">Current Hash: ${currentHash}</p>
+                    <p class="text-sm text-gray-600">Stored Hash: ${storedHashValue}</p>
+                `;
+                auditLogs.prepend(logEntry);
+
+                // Check integrity
+                if (currentHash !== storedHashValue) {
+                    alerts.classList.remove('hidden');
+                    alertMessage.textContent = `Tamper detected in ${file.name}!`;
+                    alertDetails.textContent = `Current Hash: ${currentHash}, Stored Hash: ${storedHashValue}`;
+                } else {
+                    alerts.classList.add('hidden');
+                    logEntry.classList.add('border-green-200');
+                    logEntry.innerHTML += '<p class="text-sm text-green-600 mt-1">Integrity verified.</p>';
+                }
+
+                auditStatus.classList.add('hidden');
+                startAudit.disabled = false;
+            };
+
+            reader.readAsText(file);
+        });
+
+        // Auto-refresh logs (simulated)
+        setInterval(() => {
+            const logEntry = document.createElement('div');
+            logEntry.className = 'border-l-4 border-gray-200 pl-4';
+            logEntry.innerHTML = `
+                <p class="text-sm text-gray-700">Auto-check at ${new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Seoul' })} KST</p>
+                <p class="text-sm text-gray-600">Status: No changes detected.</p>
+            `;
+            auditLogs.prepend(logEntry);
+        }, 30000); // Every 30 seconds
+    </script>
+</body>
+</html>
