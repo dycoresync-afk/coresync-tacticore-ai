@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Audit Monitor</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #status { color: green; }
+        #alert { color: red; display: none; }
+    </style>
+</head>
+<body>
+    <h2>Document Audit Monitor</h2>
+    <p>Current Hash: <span id="status">Not calculated</span></p>
+    <p>Alert: <span id="alert">No tampering detected</span></p>
+    <button onclick="saveBaseline()">Save Baseline</button>
+    <button onclick="checkIntegrity()">Check Integrity</button>
+
+    <script>
+        let baselineHash = null;
+
+        // Function to generate a simple hash of the document content
+        function generateHash() {
+            const content = document.body.innerHTML;
+            let hash = 0;
+            for (let i = 0; i < content.length; i++) {
+                const char = content.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32-bit integer
+            }
+            return hash.toString();
+        }
+
+        // Save the initial state as baseline
+        function saveBaseline() {
+            baselineHash = generateHash();
+            document.getElementById('status').textInnerHTML = baselineHash;
+            document.getElementById('alert').style.display = 'none';
+            alert('Baseline saved successfully!');
+        }
+
+        // Check if the document has been tampered
+        function checkIntegrity() {
+            if (!baselineHash) {
+                alert('Please save a baseline first!');
+                return;
+            }
+
+            const currentHash = generateHash();
+            if (currentHash !== baselineHash) {
+                document.getElementById('alert').style.display = 'block';
+                document.getElementById('alert').textContent = 'Tampering detected! Hash mismatch.';
+                alert('Warning: Document integrity compromised!');
+            } else {
+                document.getElementById('alert').style.display = 'none';
+                document.getElementById('alert').textContent = 'No tampering detected';
+                alert('Document integrity verified!');
+            }
+            document.getElementById('status').textContent = currentHash;
+        }
+
+        // Monitor for changes in real-time (basic mutation observer)
+        const observer = new MutationObserver(() => {
+            if (baselineHash) {
+                const currentHash = generateHash();
+                if (currentHash !== baselineHash) {
+                    document.getElementById('alert').style.display = 'block';
+                    document.getElementById('alert').textContent = 'Tampering detected! Real-time change observed.';
+                }
+            }
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
+    </script>
+</body>
+</html>
