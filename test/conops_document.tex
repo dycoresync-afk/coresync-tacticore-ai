@@ -1,0 +1,115 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+    citecolor=blue
+}
+
+% Header and Footer Setup
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Concept of Operations}
+\fancyhead[R]{TactiCore AI}
+\fancyfoot[C]{\thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Section Formatting
+\titleformat{\chapter}{\normalfont\LARGE\bfseries}{\thechapter}{1em}{}
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% Document Information
+\title{Concept of Operations Document}
+\author{TactiCore AI Operations Team}
+\date{\today\ at 10:15 PM KST}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\clearpage
+
+\tableofcontents
+\clearpage
+
+\chapter{Introduction}
+\section{Purpose}
+Describing operational concept guiding TactiCore AI system deployment. This document defines how route planning, security risk assessment, and tamper detection functionalities operate within Santo Domingo operations center starting September 26, 2025.
+
+\section{Scope}
+Encompassing route generation, real-time monitoring, and alert systems for critical assets including audit logs and navigation data.
+
+\chapter{Operational Overview}
+\section{System Description}
+Detailing TactiCore AI as integrated platform providing route optimization, security auditing, and alert dissemination. System leverages Leaflet.js for mapping and Python-based tamper detection.
+
+\section{Operational Environment}
+Operating in urban Santo Domingo environment with potential risks including traffic congestion and data tampering detected at 10:07 PM KST today.
+
+\chapter{Operational Scenarios}
+\section{Normal Operations}
+Illustrating typical usage generating primary, secondary, and emergency routes from Las Américas International Airport to Hotel InterContinental Santo Domingo.
+\begin{itemize}[leftmargin=*]
+    \item Route planning initiated by operator input.
+    \item Real-time monitoring ensures data integrity.
+    \item Alerts sent via email, SMS, and push notifications if tampering occurs.
+\end{itemize}
+
+\section{Contingency Operations}
+Describing response to tampering incidents:
+\begin{itemize}[leftmargin=*]
+    \item Activating emergency route with high-risk designation.
+    \item Notifying security team via multi-channel alerts.
+    \item Reassessing risk levels post-incident.
+\end{itemize}
+
+\chapter{Roles and Responsibilities}
+\section{Key Personnel}
+Listing roles involved in operations:
+\begin{longtable}{|p{4cm}|p{6cm}|p{4cm}|}
+\hline
+\textbf{Role} & \textbf{Responsibility} & \textbf{Contact} \\ \hline
+System Operator & Manages route generation and monitoring & operator@tacticore.ai \\ \hline
+Security Analyst & Conducts risk assessments and mitigation & security@tacticore.ai \\ \hline
+Alert Coordinator & Handles multi-channel notifications & alerts@tacticore.ai \\ \hline
+\end{longtable}
+
+\chapter{Procedures}
+\section{Standard Operating Procedure}
+Outlining steps for route generation:
+\begin{enumerate}[leftmargin=*]
+    \item Input start and end points via dashboard.
+    \item Generate and display three route options.
+    \item Monitor data integrity in real-time.
+\end{enumerate}
+
+\section{Emergency Procedure}
+Defining actions for tamper detection:
+\begin{enumerate}[leftmargin=*]
+    \item Trigger alerts across all channels.
+    \item Switch to emergency route if primary/secondary compromised.
+    \item Document incident for SRA update.
+\end{enumerate}
+
+\chapter{Conclusion}
+\section{Summary}
+Concluding TactiCore AI ConOps provides robust framework for secure route planning and data protection. Regular updates scheduled for October 5, 2025, to refine operations.
+
+\end{document}
