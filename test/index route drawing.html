@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TactiCore AI - Route Planning Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        .dashboard-card {
+            transition: box-shadow 0.3s ease;
+        }
+        .dashboard-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        #map-primary, #map-secondary, #map-emergency {
+            height: 300px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .no-scroll { overflow: visible !important; }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-blue-900 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex items-center justify-between">
+            <h1 class="text-2xl font-bold">TactiCore AI - Route Planning</h1>
+            <span class="bg-green-500 px-3 py-1 rounded-full text-sm">
+                <i class="fas fa-circle text-xs mr-1"></i>Online
+            </span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-6 space-y-6">
+        <!-- Status Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="dashboard-card bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-shield-alt mr-2 text-blue-600"></i>System Status
+                </h3>
+                <p class="text-gray-600">Last Checked: 10:10 PM KST, Sep 26, 2025</p>
+                <div class="mt-4">
+                    <span class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">Operational</span>
+                </div>
+            </div>
+            <div class="dashboard-card bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-route mr-2 text-green-600"></i>Routes Generated
+                </h3>
+                <p class="text-3xl font-bold text-gray-900">3</p>
+                <p class="text-gray-600 text-sm">Today</p>
+            </div>
+        </div>
+
+        <!-- Route Generation Tab -->
+        <div id="route-generation" class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>Route Generation
+            </h3>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Route Input -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="text-lg font-bold text-gray-700 mb-4">Route Parameters</h4>
+                    <form id="routeForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Start Point</label>
+                            <input type="text" id="start-point" class="w-full p-3 border border-gray-300 rounded-md" value="Las Américas International Airport">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">End Point</label>
+                            <input type="text" id="end-point" class="w-full p-3 border border-gray-300 rounded-md" value="Hotel InterContinental Santo Domingo">
+                        </div>
+                        <button type="button" id="generateRoutes" class="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700">
+                            <i class="fas fa-route mr-2"></i>Generate Routes
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Generated Routes -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="text-lg font-bold text-gray-700 mb-4">Generated Routes</h4>
+                    <div id="routeResults" class="space-y-4">
+                        <!-- Route 1: Primary -->
+                        <div class="border border-green-200 bg-green-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-start mb-2">
+                                <h5 class="font-bold text-green-800">Primary Route (Recommended)</h5>
+                                <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm">LOW RISK</span>
+                            </div>
+                            <p class="text-sm text-green-600">Distance: 32.5 km | Duration: 45 min</p>
+                            <p class="text-sm text-green-600">Route: Airport → Autopista Las Américas → Av. Winston Churchill → Hotel</p>
+                            <div id="map-primary"></div>
+                        </div>
+
+                        <!-- Route 2: Secondary -->
+                        <div class="border border-yellow-200 bg-yellow-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-start mb-2">
+                                <h5 class="font-bold text-yellow-800">Secondary Route</h5>
+                                <span class="bg-yellow-600 text-white px-3 py-1 rounded-full text-sm">MEDIUM RISK</span>
+                            </div>
+                            <p class="text-sm text-yellow-600">Distance: 38.2 km | Duration: 55 min</p>
+                            <p class="text-sm text-yellow-600">Route: Airport → Circunvalación → Av. 27 de Febrero → Hotel</p>
+                            <div id="map-secondary"></div>
+                        </div>
+
+                        <!-- Route 3: Emergency -->
+                        <div class="border border-red-200 bg-red-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-start mb-2">
+                                <h5 class="font-bold text-red-800">Emergency Route</h5>
+                                <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm">HIGH RISK</span>
+                            </div>
+                            <p class="text-sm text-red-600">Distance: 28.1 km | Duration: 35 min</p>
+                            <p class="text-sm text-red-600">Route: Airport → Av. Las Américas → Ciudad Nueva → Hotel</p>
+                            <div id="map-emergency"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 mt-12 text-center">
+        <p>&copy; 2025 TactiCore AI | Powered by xAI</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize maps
+        const mapPrimary = L.map('map-primary').setView([18.4655, -69.9117], 12); // Santo Domingo
+        const mapSecondary = L.map('map-secondary').setView([18.4655, -69.9117], 12);
+        const mapEmergency = L.map('map-emergency').setView([18.4655, -69.9117], 12);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(mapPrimary).addTo(mapSecondary).addTo(mapEmergency);
+
+        // Route coordinates (simplified examples)
+        const primaryRoute = [
+            [18.4296, -69.6690], // Las Américas International Airport
+            [18.4790, -69.8900], // Midpoint on Autopista
+            [18.4700, -69.9200], // Near Hotel
+            [18.4750, -69.9250]  // Hotel InterContinental
+        ];
+
+        const secondaryRoute = [
+            [18.4296, -69.6690], // Las Américas
+            [18.5000, -69.9500], // Midpoint on Circunvalación
+            [18.4800, -69.9500], // Near Av. 27 de Febrero
+            [18.4750, -69.9250]  // Hotel
+        ];
+
+        const emergencyRoute = [
+            [18.4296, -69.6690], // Las Américas
+            [18.4500, -69.7000], // Midpoint on Av. Las Américas
+            [18.4700, -69.9000], // Near Ciudad Nueva
+            [18.4750, -69.9250]  // Hotel
+        ];
+
+        // Draw routes
+        const primaryPolyline = L.polyline(primaryRoute, { color: 'green', weight: 4 }).addTo(mapPrimary);
+        const secondaryPolyline = L.polyline(secondaryRoute, { color: 'yellow', weight: 4 }).addTo(mapSecondary);
+        const emergencyPolyline = L.polyline(emergencyRoute, { color: 'red', weight: 4 }).addTo(mapEmergency);
+
+        // Fit maps to route bounds
+        mapPrimary.fitBounds(primaryPolyline.getBounds());
+        mapSecondary.fitBounds(secondaryPolyline.getBounds());
+        mapEmergency.fitBounds(emergencyPolyline.getBounds());
+
+        // Generate Routes Button
+        document.getElementById('generateRoutes').addEventListener('click', () => {
+            const start = document.getElementById('start-point').value;
+            const end = document.getElementById('end-point').value;
+
+            if (start && end) {
+                alert(`Routes generated from ${start} to ${end}. Check the maps below!`);
+            } else {
+                alert('Please enter both start and end points.');
+            }
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TactiCore AI - Route Planning Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        .dashboard-card {
+            transition: box-shadow 0.3s ease;
+        }
+        .dashboard-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        #map-primary, #map-secondary, #map-emergency {
+            height: 300px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .no-scroll { overflow: visible !important; }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-blue-900 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex items-center justify-between">
+            <h1 class="text-2xl font-bold">TactiCore AI - Route Planning</h1>
+            <span class="bg-green-500 px-3 py-1 rounded-full text-sm">
+                <i class="fas fa-circle text-xs mr-1"></i>Online
+            </span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-6 space-y-6">
+        <!-- Status Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="dashboard-card bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-shield-alt mr-2 text-blue-600"></i>System Status
+                </h3>
+                <p class="text-gray-600">Last Checked: 10:10 PM KST, Sep 26, 2025</p>
+                <div class="mt-4">
+                    <span class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">Operational</span>
+                </div>
+            </div>
+            <div class="dashboard-card bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-route mr-2 text-green-600"></i>Routes Generated
+                </h3>
+                <p class="text-3xl font-bold text-gray-900">3</p>
+                <p class="text-gray-600 text-sm">Today</p>
+            </div>
+        </div>
+
+        <!-- Route Generation Tab -->
+        <div id="route-generation" class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>Route Generation
+            </h3>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Route Input -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="text-lg font-bold text-gray-700 mb-4">Route Parameters</h4>
+                    <form id="routeForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Start Point</label>
+                            <input type="text" id="start-point" class="w-full p-3 border border-gray-300 rounded-md" value="Las Américas International Airport">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">End Point</label>
+                            <input type="text" id="end-point" class="w-full p-3 border border-gray-300 rounded-md" value="Hotel InterContinental Santo Domingo">
+                        </div>
+                        <button type="button" id="generateRoutes" class="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700">
+                            <i class="fas fa-route mr-2"></i>Generate Routes
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Generated Routes -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-md">
+                    <h4 class="text-lg font-bold text-gray-700 mb-4">Generated Routes</h4>
+                    <div id="routeResults" class="space-y-4">
+                        <!-- Route 1: Primary -->
+                        <div class="border border-green-200 bg-green-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-start mb-2">
+                                <h5 class="font-bold text-green-800">Primary Route (Recommended)</h5>
+                                <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm">LOW RISK</span>
+                            </div>
+                            <p class="text-sm text-green-600">Distance: 32.5 km | Duration: 45 min</p>
+                            <p class="text-sm text-green-600">Route: Airport → Autopista Las Américas → Av. Winston Churchill → Hotel</p>
+                            <div id="map-primary"></div>
+                        </div>
+
+                        <!-- Route 2: Secondary -->
+                        <div class="border border-yellow-200 bg-yellow-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-start mb-2">
+                                <h5 class="font-bold text-yellow-800">Secondary Route</h5>
+                                <span class="bg-yellow-600 text-white px-3 py-1 rounded-full text-sm">MEDIUM RISK</span>
+                            </div>
+                            <p class="text-sm text-yellow-600">Distance: 38.2 km | Duration: 55 min</p>
+                            <p class="text-sm text-yellow-600">Route: Airport → Circunvalación → Av. 27 de Febrero → Hotel</p>
+                            <div id="map-secondary"></div>
+                        </div>
+
+                        <!-- Route 3: Emergency -->
+                        <div class="border border-red-200 bg-red-50 p-4 rounded-lg">
+                            <div class="flex justify-between items-start mb-2">
+                                <h5 class="font-bold text-red-800">Emergency Route</h5>
+                                <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm">HIGH RISK</span>
+                            </div>
+                            <p class="text-sm text-red-600">Distance: 28.1 km | Duration: 35 min</p>
+                            <p class="text-sm text-red-600">Route: Airport → Av. Las Américas → Ciudad Nueva → Hotel</p>
+                            <div id="map-emergency"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 mt-12 text-center">
+        <p>&copy; 2025 TactiCore AI | Powered by xAI</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Initialize maps
+        const mapPrimary = L.map('map-primary').setView([18.4655, -69.9117], 12); // Santo Domingo
+        const mapSecondary = L.map('map-secondary').setView([18.4655, -69.9117], 12);
+        const mapEmergency = L.map('map-emergency').setView([18.4655, -69.9117], 12);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(mapPrimary).addTo(mapSecondary).addTo(mapEmergency);
+
+        // Route coordinates (simplified examples)
+        const primaryRoute = [
+            [18.4296, -69.6690], // Las Américas International Airport
+            [18.4790, -69.8900], // Midpoint on Autopista
+            [18.4700, -69.9200], // Near Hotel
+            [18.4750, -69.9250]  // Hotel InterContinental
+        ];
+
+        const secondaryRoute = [
+            [18.4296, -69.6690], // Las Américas
+            [18.5000, -69.9500], // Midpoint on Circunvalación
+            [18.4800, -69.9500], // Near Av. 27 de Febrero
+            [18.4750, -69.9250]  // Hotel
+        ];
+
+        const emergencyRoute = [
+            [18.4296, -69.6690], // Las Américas
+            [18.4500, -69.7000], // Midpoint on Av. Las Américas
+            [18.4700, -69.9000], // Near Ciudad Nueva
+            [18.4750, -69.9250]  // Hotel
+        ];
+
+        // Draw routes
+        const primaryPolyline = L.polyline(primaryRoute, { color: 'green', weight: 4 }).addTo(mapPrimary);
+        const secondaryPolyline = L.polyline(secondaryRoute, { color: 'yellow', weight: 4 }).addTo(mapSecondary);
+        const emergencyPolyline = L.polyline(emergencyRoute, { color: 'red', weight: 4 }).addTo(mapEmergency);
+
+        // Fit maps to route bounds
+        mapPrimary.fitBounds(primaryPolyline.getBounds());
+        mapSecondary.fitBounds(secondaryPolyline.getBounds());
+        mapEmergency.fitBounds(emergencyPolyline.getBounds());
+
+        // Generate Routes Button
+        document.getElementById('generateRoutes').addEventListener('click', () => {
+            const start = document.getElementById('start-point').value;
+            const end = document.getElementById('end-point').value;
+
+            if (start && end) {
+                alert(`Routes generated from ${start} to ${end}. Check the maps below!`);
+            } else {
+                alert('Please enter both start and end points.');
+            }
+        });
+    </script>
+</body>
+</html>
