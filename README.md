@@ -14,8 +14,7 @@
 - **Edge**: 50% faster deployment, 30% cheaper than Palantir.
 
 ## 🚀 Quickstart
-1. Run demo: `TactiCore_AI_Security_Planning_System.html'
-2. "Run python src/document_tracker.py for demo. Fund dev wallet with SOL testnet tokens."
+- Run demo: `TactiCore_AI_Security_Planning_System.html', For report generation 'test/conops_document.tex', 'sra_document.tex'
 
 ## 🛠 Tech Stack
 - **AI/ML**: PyTorch, [SHAP (XAI)](xai_module.md)
